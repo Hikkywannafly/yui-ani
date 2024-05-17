@@ -1,5 +1,5 @@
-import { MetaOutput, NotFoundError, ScrapeMedia } from "@movie-web/providers";
 import { jwtDecode } from "jwt-decode";
+import { MetaOutput, NotFoundError, ScrapeMedia } from "yuiani";
 
 import { mwFetch } from "@/backend/helpers/fetch";
 import { getTurnstileToken, isTurnstileInitialized } from "@/stores/turnstile";

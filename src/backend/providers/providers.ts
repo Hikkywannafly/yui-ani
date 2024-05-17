@@ -1,8 +1,4 @@
-import {
-  makeProviders,
-  makeStandardFetcher,
-  targets,
-} from "@movie-web/providers";
+import { makeProviders, makeStandardFetcher, targets } from "yuiani";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
 import {

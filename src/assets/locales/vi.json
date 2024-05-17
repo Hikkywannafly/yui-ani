@@ -1,20 +1,20 @@
 {
   "about": {
-    "description": "movie-web là một ứng dụng web tìm kiếm các nguồn truyền phát trực tuyến trên Internet. Nhóm phát triển ứng dụng này nhắm đến một cách dễ dàng hơn trong việc tiêu thụ nội dung.",
+    "description": "yui-ani là một ứng dụng web tìm kiếm các nguồn truyền phát trực tuyến trên Internet. Nhóm phát triển ứng dụng này nhắm đến một cách dễ dàng hơn trong việc tiêu thụ nội dung.",
     "faqTitle": "Các câu hỏi thường gặp",
     "q1": {
-      "body": "movie-web không lưu trữ bất kì nội dung nào. Khi bạn chọn xem một nội dung nào đó, ứng dụng sẽ tìm kiếm nội dung đó trên Internet (Khi nội dung tải và trong tab 'nguồn video' bạn sẽ tìm thấy nguồn đang được dùng). Nội dung không bao giờ được tải lên trên movie-web, mọi thứ đều được tìm kiếm thông qua phương thức này.",
+      "body": "yui-ani không lưu trữ bất kì nội dung nào. Khi bạn chọn xem một nội dung nào đó, ứng dụng sẽ tìm kiếm nội dung đó trên Internet (Khi nội dung tải và trong tab 'nguồn video' bạn sẽ tìm thấy nguồn đang được dùng). Nội dung không bao giờ được tải lên trên yui-ani, mọi thứ đều được tìm kiếm thông qua phương thức này.",
       "title": "Nội dung đến từ đâu?"
     },
     "q2": {
-      "body": "Việc yêu cầu thêm một chương trình truyền hình hoặc phim là điều bất khả thi bởi vì movie-web không quản lý bất kỳ nội dung nào. Tất cả nội dung được truyền thông qua những nguồn trên internet.",
+      "body": "Việc yêu cầu thêm một chương trình truyền hình hoặc phim là điều bất khả thi bởi vì yui-ani không quản lý bất kỳ nội dung nào. Tất cả nội dung được truyền thông qua những nguồn trên internet.",
       "title": "Tôi có thể yêu cầu thêm một chương trình truyền hình hoặc phim ở đâu?"
     },
     "q3": {
       "body": "Các kết quả tìm kiếm được cung cấp bởi The Movie Database (TMDB) và hiện lên bất kể các nguồn của trang thực sự có lưu trữ nội dung đó hay không.",
       "title": "Tại sao kết quả tìm kiếm hiển thị chương trình truyền hình hoặc phim nhưng tôi không thể xem nó?"
     },
-    "title": "Về movie-web"
+    "title": "Về yui-ani"
   },
   "actions": {
     "copied": "Đã sao chép",
@@ -80,7 +80,7 @@
   "footer": {
     "legal": {
       "disclaimer": "Tuyên bố miễn trừ trách nhiệm",
-      "disclaimerText": "movie-web không lưu trữ bất kì file nào, nó chỉ đến những đường dẫn của các dịch vụ bên thứ ba. Bất kỳ vấn đề nào về pháp lý nên được đưa đến chủ sỡ hữu của file hoặc những nhà cung cấp đó. movie-web hoàn toàn không chịu trách nhiệm cho bất kỳ nội dung nào được chiếu từ các nhà cung cấp."
+      "disclaimerText": "yui-ani không lưu trữ bất kì file nào, nó chỉ đến những đường dẫn của các dịch vụ bên thứ ba. Bất kỳ vấn đề nào về pháp lý nên được đưa đến chủ sỡ hữu của file hoặc những nhà cung cấp đó. yui-ani hoàn toàn không chịu trách nhiệm cho bất kỳ nội dung nào được chiếu từ các nhà cung cấp."
     },
     "links": {
       "discord": "Discord",
@@ -90,13 +90,15 @@
     "tagline": "Xem các chương trình và phim yêu thích của bạn với ứng dụng phát trực tuyến nguồn mở này."
   },
   "global": {
-    "name": "movie-web",
+    "name": "yui-ani",
+    "anime": "anime",
+    "search": "Tìm anime bằng screenshot",
     "pages": {
       "about": "Thông tin",
       "dmca": "DMCA",
       "login": "Đăng nhập",
       "onboarding": "Cài đặt",
-      "pagetitle": "{{title}} - movie-web",
+      "pagetitle": "{{title}} - yui-ani",
       "register": "Đăng ký",
       "settings": "Cài đặt"
     }
@@ -131,15 +133,11 @@
       },
       "morning": {
         "default": "Sáng nay bạn muốn coi gì?",
-        "extra": [
-          "Tôi nghe nói rằng bộ phim Before Sunrise hay đấy"
-        ]
+        "extra": ["Tôi nghe nói rằng bộ phim Before Sunrise hay đấy"]
       },
       "night": {
         "default": "Đêm nay bạn muốn coi gì?",
-        "extra": [
-          "Cảm thấy mệt? Tôi nghe nói phim The Exorcist hay đấy."
-        ]
+        "extra": ["Cảm thấy mệt? Tôi nghe nói phim The Exorcist hay đấy."]
       }
     }
   },
@@ -207,5 +205,322 @@
     "playbackError": {
       "title": "Rất tiếc, đã hỏng!"
     }
+  },
+  "settings": {
+    "account": {
+      "accountDetails": {
+        "deviceNameLabel": "Tên thiết bị",
+        "deviceNamePlaceholder": "Điện thoại cá nhân or tên ",
+        "editProfile": "Sửa",
+        "logoutButton": "Đăng xuất"
+      },
+      "actions": {
+        "delete": {
+          "button": "Xóa Tài khoản",
+          "confirmButton": "Xác nhận xóa",
+          "confirmDescription": "Hành động này không thể hoàn tác. Tất cả dữ liệu sẽ bị xóa và không thể khôi phục.",
+          "confirmTitle": "Bạn chắc chứ!",
+          "text": "Hành động này không thể hoàn tác. Tất cả dữ liệu sẽ bị xóa và không thể khôi phục",
+          "title": "Xóa tài khoản"
+        },
+        "title": "Actions"
+      },
+      "devices": {
+        "deviceNameLabel": "Tên thiết bị",
+        "failed": "Thất bại khi tải sessions",
+        "removeDevice": "Xóa",
+        "title": "Devices"
+      },
+      "profile": {
+        "finish": "Hoàn thành",
+        "firstColor": "Profile kiểu một",
+        "secondColor": "Profile kiểu hai",
+        "title": "Chỉnh sửa ảnh Profile",
+        "userIcon": "Biểu tượng "
+      },
+      "register": {
+        "cta": "Bắt đầu",
+        "text": "Chia sẻ tiến trình xem của bạn giữa các thiết bị và giữ cho chúng được đồng bộ hóa",
+        "title": "Đồng bộ hóa đám mây"
+      },
+      "title": "Account"
+    },
+    "appearance": {
+      "activeTheme": "Hiện tại",
+      "themes": {
+        "blue": "Blue",
+        "default": "Mặc định",
+        "gray": "Gray",
+        "red": "Red",
+        "teal": "Teal"
+      },
+      "title": "Appearance"
+    },
+    "connections": {
+      "server": {
+        "description": "Nếu bạn muốn kết nối với một backend server khác để lưu trữ dữ liệu của mình, bật tính năng này cung cấp URL. <0>Instructions.</0>",
+        "label": "Custom server",
+        "urlLabel": "Custom server URL"
+      },
+      "setup": {
+        "doSetup": "Thực hiện setup",
+        "errorStatus": {
+          "description": "Có vẻ như một hoặc nhiều mục trong thiết lập này cần bạn chú ý.",
+          "title": "Có điều gì đó cần bạn chú ý."
+        },
+        "itemError": "Có điều gì đó không ổn với cài đặt này. Hãy thực hiện lại quá trình thiết lập để khắc phục.",
+        "items": {
+          "default": "Setup mặc định",
+          "extension": "Extension",
+          "proxy": "Custom proxy"
+        },
+        "redoSetup": "Hoàn tác setup",
+        "successStatus": {
+          "description": "Tất cả mọi thứ đã sẵn sàng để bạn tận hưởng xem những chương trình thú vị!",
+          "title": "Mọi thứ đều ổn áp!"
+        },
+        "unsetStatus": {
+          "description": "Vui lòng nhấp vào nút bên phải để bắt đầu quá trình thiết lập.",
+          "title": "Bạn chưa hoàn tất quá trình thiết lập"
+        }
+      },
+      "title": "Connections",
+      "workers": {
+        "addButton": "thêm worker mới",
+        "description": "Để làm cho ứng dụng hoạt động, tất cả lưu lượng truy cập được chuyển qua proxy. Kích hoạt tính năng này nếu bạn muốn mang theo công nhân của mình",
+        "emptyState": "Chư có workers, thêm ở dưới",
+        "label": "Sử dụng custom proxy workers",
+        "urlLabel": "Worker URLs",
+        "urlPlaceholder": "https://"
+      }
+    },
+    "preferences": {
+      "language": "Application language",
+      "languageDescription": "Ngôn ngữ áp dụng cho toàn bộ ứng dụng.",
+      "thumbnail": "Generate thumbnails",
+      "thumbnailDescription": "Hầu hết các video không có thumbnails. Bạn có thể bật cài đặt này để tạo chúng nhanh chóng nhưng chúng có thể làm cho video của bạn chậm hơn.",
+      "thumbnailLabel": "Generate thumbnails",
+      "autoplay": "Autoplay",
+      "autoplayDescription": "Tự động phát tập tiếp theo trong loạt phim sau khi xem hết. Người dùng có thể bật bằng tiện ích mở rộng trình duyệt, proxy tùy chỉnh hoặc bằng cài đặt mặc định nếu được máy chủ cho phép.",
+      "autoplayLabel": "Autoplay",
+      "title": "Preferences"
+    },
+    "reset": "Trở lại",
+    "save": "Lưu",
+    "sidebar": {
+      "info": {
+        "appVersion": "App version",
+        "backendUrl": "Backend URL",
+        "backendVersion": "Backend version",
+        "hostname": "Hostname",
+        "insecure": "Không an toàn",
+        "notLoggedIn": "Bạn chưa đăng nhập",
+        "secure": "An toàn",
+        "title": "App information",
+        "unknownVersion": "Unknown",
+        "userId": "User ID"
+      }
+    },
+    "subtitles": {
+      "backgroundLabel": "Độ trong suốt của nền",
+      "backgroundBlurLabel": "Độ nhòa của nền",
+      "colorLabel": "Màu",
+      "previewQuote": "Có làm mới có ăn, không làm mà đòi có ăn thì ăn ...",
+      "textSizeLabel": "Kích cỡ chữ",
+      "title": "Subtitles"
+    },
+    "unsaved": "Bạn có các thay đổi chưa lưu"
+  },
+  "player": {
+    "back": {
+      "default": "Trở về trang chủ",
+      "short": "Trở về"
+    },
+    "casting": {
+      "enabled": "Đang truyền tới thiết bị..."
+    },
+    "menus": {
+      "downloads": {
+        "disclaimer": "Tải xuống được lấy trực tiếp từ nhà cung cấp. yui-ani không kiểm soát cách tải xuống được cung cấp.",
+        "copyHlsPlaylist": "Sao chép liên kết danh sách phát HLS",
+        "downloadSubtitle": "Tải xuống phụ đề hiện tại",
+        "downloadVideo": "Tải xuống video",
+        "hlsDisclaimer": "Tải xuống được lấy trực tiếp từ nhà cung cấp. yui-ani không kiểm soát cách tải xuống được cung cấp.<br /><br />Xin lưu ý rằng bạn đang tải xuống danh sách phát HLS, <bold>không nên tải xuống nếu bạn không quen thuộc với các định dạng phát trực tuyến nâng cao</bold>. Hãy thử các nguồn khác nhau để có các định dạng khác nhau.",
+        "onAndroid": {
+          "1": "Để tải xuống trên Android, nhấn nút tải xuống sau đó, trên trang mới, <bold>chạm và giữ</bold> vào video, sau đó chọn <bold>lưu</bold>.",
+          "shortTitle": "Tải xuống / Android",
+          "title": "Tải xuống trên Android"
+        },
+        "onIos": {
+          "1": "Để tải xuống trên iOS, nhấn nút tải xuống sau đó, trên trang mới, nhấn <bold><ios_share /></bold>, sau đó <bold>Lưu vào Tệp <ios_files /></bold>.",
+          "shortTitle": "Tải xuống / iOS",
+          "title": "Tải xuống trên iOS"
+        },
+        "onPc": {
+          "1": "Trên PC, nhấn nút tải xuống sau đó, trên trang mới, nhấp chuột phải vào video và chọn <bold>Lưu video dưới dạng</bold>",
+          "shortTitle": "Tải xuống / PC",
+          "title": "Tải xuống trên PC"
+        },
+        "title": "Tải xuống"
+      },
+      "episodes": {
+        "button": "Tập",
+        "emptyState": "Không có tập nào trong mùa này, hãy quay lại sau!",
+        "episodeBadge": "E{{episode}}",
+        "loadingError": "Lỗi tải mùa",
+        "loadingList": "Đang tải...",
+        "loadingTitle": "Đang tải...",
+        "unairedEpisodes": "Một hoặc nhiều tập trong mùa này đã bị vô hiệu hóa vì chưa được phát sóng."
+      },
+      "playback": {
+        "speedLabel": "Tốc độ phát lại",
+        "title": "Cài đặt phát lại"
+      },
+      "quality": {
+        "automaticLabel": "Chất lượng tự động",
+        "hint": "Bạn có thể thử <0>chuyển đổi nguồn</0> để có các tùy chọn chất lượng khác nhau.",
+        "iosNoQuality": "Do các giới hạn do Apple định nghĩa, lựa chọn chất lượng không khả dụng trên iOS cho nguồn này. Bạn có thể thử <0>chuyển sang nguồn khác</0> để có các tùy chọn chất lượng khác nhau.",
+        "title": "Chất lượng"
+      },
+      "settings": {
+        "downloadItem": "Tải xuống",
+        "enableSubtitles": "Bật phụ đề",
+        "experienceSection": "Trải nghiệm xem",
+        "playbackItem": "Cài đặt phát lại",
+        "audioItem": "Âm thanh",
+        "qualityItem": "Chất lượng",
+        "sourceItem": "Nguồn video",
+        "subtitleItem": "Cài đặt phụ đề",
+        "videoSection": "Cài đặt video"
+      },
+      "sources": {
+        "failed": {
+          "text": "Đã xảy ra lỗi khi cố gắng tìm video, vui lòng thử nguồn khác.",
+          "title": "Lấy dữ liệu thất bại"
+        },
+        "noEmbeds": {
+          "text": "Chúng tôi không thể tìm thấy bất kỳ nhúng nào, vui lòng thử nguồn khác.",
+          "title": "Không tìm thấy nhúng"
+        },
+        "noStream": {
+          "text": "Nguồn này không có luồng nào cho bộ phim hoặc chương trình này.",
+          "title": "Không có luồng"
+        },
+        "title": "Nguồn",
+        "unknownOption": "Không xác định"
+      },
+      "subtitles": {
+        "customChoice": "Thả hoặc tải lên tệp",
+        "customizeLabel": "Tùy chỉnh",
+        "offChoice": "Tắt",
+        "settings": {
+          "backlink": "Phụ đề tùy chỉnh",
+          "delay": "Độ trễ phụ đề",
+          "fixCapitals": "Sửa chữ hoa"
+        },
+        "title": "Phụ đề",
+        "unknownLanguage": "Không xác định",
+        "dropSubtitleFile": "Thả tệp phụ đề vào đây"
+      }
+    },
+    "metadata": {
+      "api": {
+        "text": "Không thể tải dữ liệu API, vui lòng kiểm tra kết nối internet của bạn.",
+        "title": "Tải dữ liệu API thất bại"
+      },
+      "dmca": {
+        "badge": "Đã xóa",
+        "text": "Phương tiện này không còn khả dụng do thông báo gỡ xuống hoặc yêu cầu bản quyền.",
+        "title": "Phương tiện đã bị xóa"
+      },
+      "extensionPermission": {
+        "badge": "Thiếu quyền",
+        "button": "Sử dụng tiện ích mở rộng",
+        "text": "Bạn đã cài đặt tiện ích mở rộng trình duyệt, nhưng chúng tôi cần quyền của bạn để bắt đầu sử dụng tiện ích mở rộng.",
+        "title": "Cấu hình tiện ích mở rộng"
+      },
+      "failed": {
+        "badge": "Thất bại",
+        "homeButton": "Về trang chủ",
+        "text": "Không thể tải dữ liệu của phương tiện từ TMDB. Vui lòng kiểm tra xem TMDB có bị sập hoặc bị chặn trên kết nối internet của bạn không.",
+        "title": "Tải dữ liệu thất bại"
+      },
+      "notFound": {
+        "badge": "Không tìm thấy",
+        "homeButton": "Về trang chủ",
+        "text": "Chúng tôi không thể tìm thấy phương tiện bạn yêu cầu. Có thể nó đã bị xóa hoặc bạn đã thay đổi URL.",
+        "title": "Không thể tìm thấy phương tiện đó."
+      }
+    },
+    "nextEpisode": {
+      "cancel": "Hủy",
+      "next": "Tập tiếp theo",
+      "nextSeason": "Mùa tiếp theo"
+    },
+    "playbackError": {
+      "badge": "Lỗi phát lại",
+      "errors": {
+        "errorAborted": "Việc lấy phương tiện đã bị người dùng yêu cầu hủy bỏ.",
+        "errorDecode": "Mặc dù trước đó đã được xác định là có thể sử dụng, nhưng đã xảy ra lỗi khi cố gắng giải mã tài nguyên phương tiện, dẫn đến lỗi.",
+        "errorGenericMedia": "Đã xảy ra lỗi phương tiện không xác định.",
+        "errorNetwork": "Đã xảy ra một số loại lỗi mạng khiến phương tiện không thể được lấy thành công, mặc dù trước đó đã có sẵn.",
+        "errorNotSupported": "Phương tiện hoặc đối tượng nhà cung cấp phương tiện không được hỗ trợ."
+      },
+      "homeButton": "Về trang chủ",
+      "text": "Đã xảy ra lỗi khi cố gắng phát phương tiện. Vui lòng thử lại.",
+      "title": "Không thể phát video!"
+    },
+    "scraping": {
+      "items": {
+        "failure": "Đã xảy ra lỗi",
+        "notFound": "Không có video",
+        "pending": "Đang kiểm tra video..."
+      },
+      "notFound": {
+        "badge": "Không tìm thấy",
+        "detailsButton": "Hiển thị chi tiết",
+        "homeButton": "Về trang chủ",
+        "text": "Chúng tôi đã tìm kiếm qua các nhà cung cấp của mình và không thể tìm thấy phương tiện bạn đang tìm kiếm! Chúng tôi không lưu trữ phương tiện và không kiểm soát những gì có sẵn. Vui lòng nhấp vào 'Hiển thị chi tiết' bên dưới để biết thêm chi tiết.",
+        "title": "Chúng tôi không thể tìm thấy điều đó"
+      },
+      "extensionFailure": {
+        "badge": "Tiện ích bị vô hiệu hóa",
+        "homeButton": "Về trang chủ",
+        "enableExtension": "Bật tiện ích",
+        "title": "Vui lòng bật tiện ích mở rộng",
+        "text": "Bạn đã cài đặt tiện ích mở rộng yui-ani. Để bắt đầu sử dụng, bạn cần bật tiện ích mở rộng cho trang web này."
+      }
+    },
+    "time": {
+      "regular": "{{timeWatched}} / {{duration}}",
+      "remaining": "Còn lại {{timeLeft}} • Hoàn thành vào {{timeFinished, datetime}}",
+      "shortRegular": "{{timeWatched}}",
+      "shortRemaining": "-{{timeLeft}}"
+    },
+    "turnstile": {
+      "description": "Vui lòng xác minh rằng bạn là con người bằng cách hoàn thành Captcha ở bên phải. Điều này để giữ yui-ani an toàn!",
+      "error": "Xác minh nhân tính thất bại. Vui lòng thử lại.",
+      "title": "Chúng tôi cần xác minh rằng bạn là con người.",
+      "verifyingHumanity": "Đang xác minh bạn là con người..."
+    }
+  },
+  "trace": {
+    "browse_files": "Chọn ảnh từ máy",
+    "description": "Nó cho bạn biết anime, tập và khoảnh khắc mà hình ảnh đó xuất hiện!\n",
+    "drag_and_drop": "Kéo và thả",
+    "heading": "Công cụ tìm kiếm Anime bằng hình ảnh.\n",
+    "invalid_url": "URL không hợp lệ",
+    "made_by": "Công cụ sử dụng công nghệ tìm kiếm của",
+    "note": "Lưu ý: Kết quả tìm kiếm không hoàn toàn chính xác 100%. Chỉ hoạt động với cảnh trong phim.",
+    "num_of_found_images": "Đã tìm {{num}} ảnh",
+    "percent_similarity": "~{{percent}}% chính xác",
+    "tab_title": "Tìm kiếm Anime qua hình ảnh",
+    "try_again": "Thử ảnh khác",
+    "upload": "Tải lên",
+    "upload_another_image": "Ảnh khác",
+    "upload_image": "Tải lên ảnh của bạn",
+    "upload_supported_extensions": "Hỗ trợ PNG, JPG.",
+    "your_image": "Ảnh của bạn",
+    "search": "Tìm kiếm"
   }
 }

@@ -4,5 +4,5 @@ export interface MediaItem {
   year?: number;
   release_date?: Date;
   poster?: string;
-  type: "show" | "movie";
+  type: "show" | "movie" | "anime";
 }

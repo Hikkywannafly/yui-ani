@@ -15,7 +15,7 @@ function Divider() {
   return <hr className="border-0 w-full h-px bg-dropdown-border" />;
 }
 
-function GoToLink(props: {
+export function GoToLink(props: {
   children: React.ReactNode;
   href?: string;
   className?: string;
@@ -44,7 +44,7 @@ function GoToLink(props: {
   );
 }
 
-function DropdownLink(props: {
+export function DropdownLink(props: {
   children: React.ReactNode;
   href?: string;
   icon?: Icons;

@@ -93,6 +93,7 @@
   },
   "global": {
     "name": "movie-web",
+    "anime": "anime",
     "pages": {
       "about": "Про",
       "dmca": "DMCA",

@@ -22,6 +22,8 @@ import { LoginPage } from "@/pages/Login";
 import { OnboardingPage } from "@/pages/onboarding/Onboarding";
 import { OnboardingExtensionPage } from "@/pages/onboarding/OnboardingExtension";
 import { OnboardingProxyPage } from "@/pages/onboarding/OnboardingProxy";
+import { Anime } from "@/pages/parts/anime/Anime";
+import { SceneSearch } from "@/pages/parts/scene-search/SceneSearch";
 import { RegisterPage } from "@/pages/Register";
 import { Layout } from "@/setup/Layout";
 import { useHistoryListener } from "@/stores/history";
@@ -95,7 +97,10 @@ function App() {
         <Route path="/s/:query" element={<QuickSearch />} />
         <Route path="/search/:type" element={<Navigate to="/browse" />} />
         <Route path="/search/:type/:query?" element={<QueryView />} />
-
+        {/* functional routes for anime */}
+        <Route path="/anime/s/:query" element={<QuickSearch />} />
+        <Route path="/anime/search/:type" element={<Navigate to="/browse" />} />
+        <Route path="/anime/search/:type/:query?" element={<QueryView />} />
         {/* pages */}
         <Route
           path="/media/:media"
@@ -133,6 +138,9 @@ function App() {
           <Route path="/dmca" element={<DmcaPage />} />
         ) : null}
 
+        {/* Anime sites */}
+        <Route path="/anime" element={<Anime />} />
+        <Route path="/scene-search" element={<SceneSearch />} />
         {/* Settings page */}
         <Route
           path="/settings"

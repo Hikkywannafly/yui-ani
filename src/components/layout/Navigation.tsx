@@ -2,16 +2,18 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 
 import { NoUserAvatar, UserAvatar } from "@/components/Avatar";
-import { IconPatch } from "@/components/buttons/IconPatch";
-import { Icons } from "@/components/Icon";
-import { LinksDropdown } from "@/components/LinksDropdown";
+// import { IconPatch } from "@/components/buttons/IconPatch";
+// import { Icons } from "@/components/Icon";
+import { GoToLink, LinksDropdown } from "@/components/LinksDropdown";
 import { Lightbar } from "@/components/utils/Lightbar";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { BlurEllipsis } from "@/pages/layouts/SubPageLayout";
-import { conf } from "@/setup/config";
+// import { conf } from "@/setup/config";
 import { useBannerSize } from "@/stores/banner";
 
+import { Anime } from "./Anime";
 import { BrandPill } from "./BrandPill";
+import { SceneSearch } from "./SceneSearch";
 
 export interface NavigationProps {
   bg?: boolean;
@@ -86,13 +88,32 @@ export function Navigation(props: NavigationProps) {
               >
                 <BrandPill clickable />
               </Link>
-              <a
+
+              <GoToLink
+                className="block tabbable rounded-full text-xs ssm:text-base"
+                href="/anime"
+              >
+                <Anime clickable />
+              </GoToLink>
+              <Link
+                className="block tabbable rounded-full text-xs ssm:text-base"
+                to="/scene-search"
+              >
+                <SceneSearch hideTextOnMobile clickable />
+              </Link>
+              {/* <Link
+                className="block tabbable rounded-full text-xs ssm:text-base"
+                to="anime"
+              >
+                <Anime clickable />
+              </Link> */}
+              {/* <a
                 href={conf().DISCORD_LINK}
                 target="_blank"
                 rel="noreferrer"
                 className="text-xl text-white tabbable rounded-full"
               >
-                <IconPatch icon={Icons.DISCORD} clickable downsized />
+                <IconPatch icon={Icons.DISCORD} clickable downsized  />
               </a>
               <a
                 href={conf().GITHUB_LINK}
@@ -101,7 +122,7 @@ export function Navigation(props: NavigationProps) {
                 className="text-xl text-white tabbable rounded-full"
               >
                 <IconPatch icon={Icons.GITHUB} clickable downsized />
-              </a>
+              </a> */}
             </div>
             <div className="relative pointer-events-auto">
               <LinksDropdown>
