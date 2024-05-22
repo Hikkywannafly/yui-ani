@@ -1,4 +1,5 @@
 {
+  "locale": "vi-VN",
   "about": {
     "description": "yui-ani là một ứng dụng web tìm kiếm các nguồn truyền phát trực tuyến trên Internet. Nhóm phát triển ứng dụng này nhắm đến một cách dễ dàng hơn trong việc tiêu thụ nội dung.",
     "faqTitle": "Các câu hỏi thường gặp",
@@ -522,5 +523,8 @@
     "upload_supported_extensions": "Hỗ trợ PNG, JPG.",
     "your_image": "Ảnh của bạn",
     "search": "Tìm kiếm"
+  },
+  "common": {
+    "episode": "Tập"
   }
 }

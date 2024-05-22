@@ -32,31 +32,31 @@ interface TraceCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function TraceCard(props: TraceCardProps) {
-  const { data, isActive } = props;
+  const { data, isActive, className } = props;
   const { t } = useTranslation();
   return (
     <div
       className={classNames(
         "space-y-2 bg-background-900 p-4 hover:bg-white/20 transition duration-300 cursor-pointer",
-        // isActive && "bg-white/20",
-        // className,
+        isActive && "bg-white/20",
+        className,
       )}
-      // {...props}
+      {...props}
     >
       {/* <p className="text-lg font-semibold">{data.anime}</p> */}
 
       <div className="grid grid-cols-10">
         <div className="col-span-5 flex flex-col justify-between">
-          <p>
-            {t("common:episode")} {data.episode}
+          <p className="">
+            {t("common.episode")} {data.episode}
           </p>
 
-          <p>
+          <p className="text-green-400">
             {parseTime(data.from)} - {parseTime(data.to)}
           </p>
 
           {/* <p>~{(data.similarity * 100).toFixed(2)}% chính xác</p> */}
-          <p>
+          <p className="text-rose-400">
             {t("trace.percent_similarity", {
               percent: (data.similarity * 100).toFixed(2),
             })}

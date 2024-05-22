@@ -68,6 +68,13 @@ const composeData = (
   };
 };
 
+export const removeDuplicates = (arr: any[], key: string) => {
+  return arr.filter(
+    (item, index, self) =>
+      index === self.findIndex((t) => t[key] === item[key]),
+  );
+};
+
 export const useTraceImage = () => {
   return useMutation(async (image: any) => {
     let data: RawTraceImageResponse;
@@ -99,7 +106,7 @@ export const useTraceImage = () => {
       };
     });
     const newData = composeData(data, newArray);
-    console.log(newData);
+    // const datanew = removeDuplicates(newData.result, "anime.id");
     return newData;
   });
 };

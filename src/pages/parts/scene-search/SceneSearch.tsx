@@ -7,29 +7,12 @@ import { Icons } from "@/components/Icon";
 import { Loading } from "@/components/layout/Loading";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { TraceImageSearch } from "@/components/trace/TraceImageSearch";
-import { TracePanel } from "@/components/trace/TracePanel";
+import TracePanel from "@/components/trace/TracePanel";
 import { Heading2, Paragraph } from "@/components/utils/Text";
 import { useTraceImage } from "@/hooks/useTraceImage";
 import { PageTitle } from "@/pages/parts/util/PageTitle";
 
 import { SubPageLayout } from "../../layouts/SubPageLayout";
-
-// Hàm chuyển đổi dữ liệu
-function transformTraceResult(data: any) {
-  return data.result.map((item: any) => ({
-    anime: {
-      id: item.anime.Media.id,
-      title: item.anime.Media.title,
-    },
-    filename: item.filename,
-    episode: item.episode,
-    from: item.from,
-    to: item.to,
-    similarity: item.similarity,
-    video: item.video,
-    image: item.image,
-  }));
-}
 
 export function SceneSearch() {
   const { t } = useTranslation();
@@ -48,11 +31,9 @@ export function SceneSearch() {
 
   useEffect(() => {
     if (data) {
-      const transformedData = data;
-      setTraceResult(transformedData);
+      setTraceResult(data);
     }
   }, [data]);
-
   const handleReset = useCallback(() => {
     setTraceResult(null);
     setImage(null);
@@ -61,7 +42,7 @@ export function SceneSearch() {
   return (
     <SubPageLayout>
       <PageTitle subpage k="trace.heading" />
-      <WideContainer>
+      <WideContainer ultraWide>
         <div className="text-center">
           <Heading2>{t("trace.heading")}</Heading2>
           <h3 className="text-lg mb-2">{t("trace.description")}</h3>

@@ -1,4 +1,5 @@
 import { ReactElement, Suspense, lazy, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { lazyWithPreload } from "react-lazy-with-preload";
 import {
   Navigate,
@@ -54,9 +55,10 @@ function LegacyUrlView({ children }: { children: ReactElement }) {
 }
 
 function QuickSearch() {
+  const { t } = useTranslation();
+  const locale = t("locale");
   const { query } = useParams<{ query: string }>();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (query) {
       generateQuickSearchMediaUrl(query).then((url) => {
@@ -65,7 +67,7 @@ function QuickSearch() {
     } else {
       navigate("/", { replace: true });
     }
-  }, [query, navigate]);
+  }, [query, navigate, locale]);
 
   return null;
 }

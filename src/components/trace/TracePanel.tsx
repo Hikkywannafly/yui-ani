@@ -1,21 +1,34 @@
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ImageType } from "react-images-uploading";
 
+import { getDataWithName } from "@/backend/metadata/tmdb";
 import { TraceImageResponse } from "@/hooks/useTraceImage";
 
 import { TraceCard } from "./TraceCard";
 
 interface TracePanelProps {
-  data: any;
+  data: TraceImageResponse;
   image?: ImageType | any;
 }
 
-export function numberWithCommas(x: any) {
+export function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-export function TracePanel(props: TracePanelProps) {
+function TracePanel(props: TracePanelProps) {
   const { data, image } = props;
-  console.log(`TracePanel: data`, data);
+  const [cardIndex, setCardIndex] = useState(0);
+
+  const card = useMemo(() => data.result[cardIndex], [cardIndex, data.result]);
+
+  const activeData = useMemo(
+    () => getDataWithName(card.anime.title.native).then,
+    [card.anime],
+  );
+
+  const handleCardClick = useCallback((index: number) => {
+    setCardIndex(index);
+  }, []);
   const { t } = useTranslation();
   return (
     <div className="flex w-full flex-col gap-8 md:flex-row">
@@ -33,15 +46,38 @@ export function TracePanel(props: TracePanelProps) {
           </div>
         </div>
 
-        {data.result.map((result: any) => (
+        {data.result.map((result: any, index: number) => (
           <TraceCard
             data={result}
-            key={result.anime.id}
-            // onClick={() => handleCardClick(index)}
-            // isActive={index === cardIndex}
+            key={index.toFixed(0)}
+            onClick={() => handleCardClick(index)}
+            isActive={index === cardIndex}
           />
         ))}
+      </div>
+      <div className="h-max w-full space-y-4 bg-background-900 md:w-[70%]">
+        <div className="aspect-h-9 aspect-w-16 w-full">
+          <video
+            src={`${card.video}&size=l`}
+            loop
+            className="w-full object-contain"
+            autoPlay
+            muted
+            controls
+          />
+        </div>
+        <div className="space-y-8 p-8">
+          <div className="flex flex-col items-start gap-4 text-center md:flex-row md:text-left">
+            <div className="mx-auto w-[183px] shrink-0 md:mx-0">
+              <div className="relative aspect-w-2 aspect-h-3">
+                {/* <img src={} /> */}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
+export default React.memo(TracePanel);

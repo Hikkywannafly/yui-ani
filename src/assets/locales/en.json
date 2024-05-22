@@ -1,4 +1,5 @@
 {
+  "locale": "en-US",
   "about": {
     "description": "yui-ani is a web application that searches the internet for streams. The team aims for a mostly minimalistic approach to consuming content.",
     "faqTitle": "Common questions",
@@ -575,5 +576,8 @@
     "upload_supported_extensions": "PNG, JPG supported.",
     "your_image": "Your search image",
     "search": "Search"
+  },
+  "common": {
+    "episode": "episode"
   }
 }

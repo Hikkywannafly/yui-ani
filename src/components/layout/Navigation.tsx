@@ -101,28 +101,6 @@ export function Navigation(props: NavigationProps) {
               >
                 <SceneSearch hideTextOnMobile clickable />
               </Link>
-              {/* <Link
-                className="block tabbable rounded-full text-xs ssm:text-base"
-                to="anime"
-              >
-                <Anime clickable />
-              </Link> */}
-              {/* <a
-                href={conf().DISCORD_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xl text-white tabbable rounded-full"
-              >
-                <IconPatch icon={Icons.DISCORD} clickable downsized  />
-              </a>
-              <a
-                href={conf().GITHUB_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xl text-white tabbable rounded-full"
-              >
-                <IconPatch icon={Icons.GITHUB} clickable downsized />
-              </a> */}
             </div>
             <div className="relative pointer-events-auto">
               <LinksDropdown>

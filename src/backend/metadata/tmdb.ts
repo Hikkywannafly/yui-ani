@@ -1,6 +1,7 @@
 import slugify from "slugify";
 
 import { conf } from "@/setup/config";
+import i18n from "@/setup/i18n";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { MWMediaMeta, MWMediaType, MWSeasonMeta } from "./types/mw";
@@ -185,10 +186,11 @@ async function get<T>(url: string, params?: object): Promise<T> {
 export async function multiSearch(
   query: string,
 ): Promise<(TMDBMovieSearchResult | TMDBShowSearchResult)[]> {
+  const currentLanguage = i18n.language;
   const data = await get<TMDBSearchResult>("search/multi", {
     query,
     include_adult: false,
-    language: "en-US",
+    language: currentLanguage,
     page: 1,
   });
   // filter out results that aren't movies or shows
@@ -292,4 +294,28 @@ export function formatTMDBSearchResult(
     original_release_date: new Date(movie.release_date),
     object_type: mediatype,
   };
+}
+
+// export async function multiSearch(
+//   query: string,
+//   locale?: string,
+// ): Promise<(TMDBMovieSearchResult | TMDBShowSearchResult)[]> {
+//   const data = await get<TMDBSearchResult>("search/multi", {
+//     query,
+//     include_adult: false,
+//     language: locale || "vi-VN",
+//     page: 1,
+//   });
+//   // filter out results that aren't movies or shows
+//   const results = data.results.filter(
+//     (r) =>
+//       r.media_type === TMDBContentTypes.MOVIE ||
+//       r.media_type === TMDBContentTypes.TV,
+//   );
+//   return results;
+// }
+
+export async function getDataWithName(query: string, field?: string) {
+  const data = await multiSearch(query);
+  return data.map((r) => formatTMDBSearchResult(r, r.media_type));
 }
