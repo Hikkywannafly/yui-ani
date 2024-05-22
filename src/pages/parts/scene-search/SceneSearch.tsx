@@ -17,12 +17,12 @@ import { SubPageLayout } from "../../layouts/SubPageLayout";
 export function SceneSearch() {
   const { t } = useTranslation();
   const [traceResult, setTraceResult] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<ImageType | null>(null);
 
   const { mutate, data, isLoading } = useTraceImage();
 
   const handleOnSearch = useCallback(
-    async (images: any) => {
+    async (images: ImageType) => {
       setImage(images);
       await mutate(images);
     },
