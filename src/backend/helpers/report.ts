@@ -1,7 +1,7 @@
-import { ScrapeMedia } from "@movie-web/providers";
 import { nanoid } from "nanoid";
 import { ofetch } from "ofetch";
 import { useCallback } from "react";
+import { ScrapeMedia } from "yuiani";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
 import { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
@@ -16,7 +16,7 @@ const captchaMetricsEndpoint = `${BACKEND_URL}/metrics/captcha`;
 const batchId = () => nanoid(32);
 
 export type ProviderMetric = {
-  tmdbId: string;
+  tmdbId: string | undefined;
   type: string;
   title: string;
   seasonId?: string;

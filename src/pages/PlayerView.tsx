@@ -1,4 +1,3 @@
-import { RunOutput } from "@movie-web/providers";
 import { useCallback, useEffect, useState } from "react";
 import {
   Navigate,
@@ -7,6 +6,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { useAsync } from "react-use";
+import { RunOutput } from "yuiani";
 
 import { usePlayer } from "@/components/player/hooks/usePlayer";
 import { usePlayerMeta } from "@/components/player/hooks/usePlayerMeta";

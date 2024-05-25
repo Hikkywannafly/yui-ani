@@ -4,6 +4,14 @@ import { getMediaAnimeFromAnilist } from "@/backend/metadata/anilist";
 
 import useMutation from "./useMutation ";
 
+interface Anime {
+  id: number;
+  title: {
+    romaji: string;
+    english: string;
+    native: string;
+  };
+}
 interface RawTraceImageResult {
   filename: string;
   episode: number;
@@ -22,7 +30,7 @@ interface RawTraceImageResponse {
 }
 
 export interface TraceImageResult {
-  anime: any;
+  anime: Anime;
   filename: string;
   episode: number;
   from: number;

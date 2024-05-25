@@ -1,9 +1,10 @@
-import { ProviderControls, ScrapeMedia } from "@movie-web/providers";
+// import { ProviderControls, ScrapeMedia } from "@movie-web/providers";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMountedState } from "react-use";
 import type { AsyncReturnType } from "type-fest";
+import { ProviderControls, ScrapeMedia } from "yuiani";
 
 import {
   scrapePartsToProviderMetric,

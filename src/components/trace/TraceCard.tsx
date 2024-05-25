@@ -27,7 +27,7 @@ export function parseTime(seconds: string | number) {
 }
 
 interface TraceCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: any;
+  data: TraceImageResult;
   isActive: boolean;
 }
 

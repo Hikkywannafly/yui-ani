@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ImageType } from "react-images-uploading";
 
@@ -6,6 +6,7 @@ import { getDataWithName } from "@/backend/metadata/tmdb";
 import { TraceImageResponse } from "@/hooks/useTraceImage";
 
 import { TraceCard } from "./TraceCard";
+import { toArray } from "../utils";
 
 interface TracePanelProps {
   data: TraceImageResponse;
@@ -15,21 +16,31 @@ interface TracePanelProps {
 export function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
 function TracePanel(props: TracePanelProps) {
   const { data, image } = props;
   const [cardIndex, setCardIndex] = useState(0);
+  const [movieDetails, setMovieDetails] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true); // State to track loading status
 
   const card = useMemo(() => data.result[cardIndex], [cardIndex, data.result]);
 
-  const activeData = useMemo(
-    () => getDataWithName(card.anime.title.native).then,
-    [card.anime],
-  );
+  useEffect(() => {
+    async function fetchMovieDetails() {
+      setLoading(true);
+      const movie = await getDataWithName(card.anime.title.native);
+      setMovieDetails(toArray(movie));
+      setLoading(false);
+    }
+    fetchMovieDetails();
+  }, [card.anime]);
 
   const handleCardClick = useCallback((index: number) => {
     setCardIndex(index);
   }, []);
+
   const { t } = useTranslation();
+
   return (
     <div className="flex w-full flex-col gap-8 md:flex-row">
       <div className="w-full space-y-4 md:w-[30%]">
@@ -70,8 +81,22 @@ function TracePanel(props: TracePanelProps) {
           <div className="flex flex-col items-start gap-4 text-center md:flex-row md:text-left">
             <div className="mx-auto w-[183px] shrink-0 md:mx-0">
               <div className="relative aspect-w-2 aspect-h-3">
-                {/* <img src={} /> */}
+                {loading ? (
+                  <p>Loading...</p> // Show loading message when data is being fetched
+                ) : (
+                  <img src={movieDetails?.poster} alt="Movie Poster" />
+                )}
               </div>
+              {loading ? (
+                <p>Loading...</p> // Show loading message when data is being fetched
+              ) : (
+                <div className="space-y-4">
+                  <h1 className="text-2xl font-semibold">
+                    {movieDetails?.title}
+                  </h1>
+                  <p className="text-gray-300">{card.anime.title.native}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

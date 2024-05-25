@@ -1,9 +1,5 @@
-import {
-  FullScraperEvents,
-  RunOutput,
-  ScrapeMedia,
-} from "@movie-web/providers";
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { FullScraperEvents, RunOutput, ScrapeMedia } from "yuiani";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
 import { prepareStream } from "@/backend/extension/streams";
