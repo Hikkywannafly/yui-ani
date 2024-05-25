@@ -21,6 +21,69 @@
     "copied": "Đã sao chép",
     "copy": "Sao chép"
   },
+  "onboarding": {
+    "defaultConfirm": {
+      "cancel": "Hủy bỏ",
+      "confirm": "Sử dụng thiết lập mặc định",
+      "description": "Thiết lập mặc định không có các luồng tốt nhất và có thể rất chậm.",
+      "title": "Bạn có chắc chắn không?"
+    },
+    "extension": {
+      "back": "Quay lại",
+      "explainer": "Sử dụng tiện ích mở rộng trình duyệt, bạn có thể có được các luồng tốt nhất mà chúng tôi cung cấp. Chỉ cần cài đặt đơn giản.",
+      "explainerIos": "Rất tiếc, tiện ích mở rộng trình duyệt không được hỗ trợ trên iOS. Nhấn <bold>Quay lại</bold> để chọn tùy chọn khác.",
+      "extensionHelp": "Nếu bạn đã cài đặt tiện ích mở rộng nhưng nó không được phát hiện, <bold>mở tiện ích mở rộng qua menu tiện ích trình duyệt của bạn</bold> và làm theo các bước trên màn hình.",
+      "linkChrome": "Cài đặt tiện ích Chrome",
+      "linkFirefox": "Cài đặt tiện ích Firefox",
+      "notDetecting": "Đã cài đặt trên Chrome nhưng trang web không phát hiện được? Hãy thử tải lại trang!",
+      "notDetectingAction": "Tải lại trang",
+      "status": {
+        "disallowed": "Tiện ích mở rộng không được bật cho trang này",
+        "disallowedAction": "Bật tiện ích mở rộng",
+        "failed": "Yêu cầu trạng thái không thành công",
+        "loading": "Đang chờ bạn cài đặt tiện ích mở rộng",
+        "outdated": "Phiên bản tiện ích mở rộng quá cũ",
+        "success": "Tiện ích mở rộng hoạt động như mong đợi!"
+      },
+      "submit": "Tiếp tục",
+      "title": "Hãy bắt đầu với tiện ích mở rộng"
+    },
+    "proxy": {
+      "back": "Quay lại",
+      "explainer": "Với phương pháp proxy, bạn có thể có được các luồng chất lượng cao bằng cách tự tạo proxy.",
+      "input": {
+        "errorConnection": "Không thể kết nối với proxy",
+        "errorInvalidUrl": "URL không hợp lệ",
+        "errorNotProxy": "Đã nhận được một trang web thay vì một proxy",
+        "label": "URL Proxy",
+        "placeholder": "https://"
+      },
+      "link": "Tìm hiểu cách tạo proxy",
+      "submit": "Gửi proxy",
+      "title": "Hãy tạo một proxy mới"
+    },
+    "start": {
+      "explainer": "Để có được các luồng tốt nhất có thể, bạn sẽ cần chọn phương pháp phát trực tuyến mà bạn muốn sử dụng.",
+      "options": {
+        "default": {
+          "text": "Tôi không cần chất lượng luồng tốt,<0 /> <1>sử dụng thiết lập mặc định</1>"
+        },
+        "extension": {
+          "action": "Cài đặt tiện ích mở rộng",
+          "description": "Cài đặt tiện ích mở rộng trình duyệt và truy cập các nguồn tốt nhất.",
+          "quality": "Chất lượng tốt nhất",
+          "title": "Tiện ích mở rộng trình duyệt"
+        },
+        "proxy": {
+          "action": "Thiết lập proxy",
+          "description": "Thiết lập proxy chỉ trong 5 phút và truy cập các nguồn tốt.",
+          "quality": "Chất lượng tốt",
+          "title": "Proxy tùy chỉnh"
+        }
+      },
+      "title": "Hãy cài đặt yui-ani cho bạn"
+    }
+  },
   "auth": {
     "createAccount": "Chưa có tài khoản? <0>Hãy tạo tài khoản.</0>",
     "deviceNameLabel": "Tên thiết bị",
@@ -168,45 +231,6 @@
     "message": "Chúng tôi đã tìm kiếm khắp nơi: dưới thùng rác, trong tủ quần áo, đằng sau máy chủ proxy nhưng vẫn không thể tìm thấy trang bạn đang tìm kiếm.",
     "title": "Không thể tìm thấy trang"
   },
-  "onboarding": {
-    "defaultConfirm": {
-      "cancel": "Huỷ",
-      "confirm": "Chọn cài đặt mặc định",
-      "description": "Cài đặt mặc định có thể dẫn đến việc phát video chậm.",
-      "title": "Bạn có chắc không?"
-    },
-    "extension": {
-      "back": "Trở lại",
-      "explainer": "Bạn có thể sử dụng các nguồn tốt nhất mà chúng tôi cung cấp bằng cách sử dụng tiện ích mở rộng trình duyệt. Đơn giản chỉ cần cài đặt."
-    }
-  },
-  "player": {
-    "back": {
-      "default": "Quay lại trang chính",
-      "short": "Quay lại"
-    },
-    "menus": {
-      "episodes": {
-        "button": "Tập",
-        "loadingList": "Đang tải...",
-        "loadingTitle": "Đang tải..."
-      },
-      "sources": {
-        "title": "Nguồn"
-      }
-    },
-    "metadata": {
-      "notFound": {
-        "badge": "Không tìm thấy",
-        "homeButton": "Quay lại trang chính",
-        "text": "Chúng tôi không thể tìm thấy nội dung mà bạn yêu cầu. Hoặc là nó đã bị xóa, hoặc bạn đã xáo trộn URL.",
-        "title": "Không thể tìm thấy nội dung."
-      }
-    },
-    "playbackError": {
-      "title": "Rất tiếc, đã hỏng!"
-    }
-  },
   "settings": {
     "account": {
       "accountDetails": {
@@ -224,27 +248,27 @@
           "text": "Hành động này không thể hoàn tác. Tất cả dữ liệu sẽ bị xóa và không thể khôi phục",
           "title": "Xóa tài khoản"
         },
-        "title": "Actions"
+        "title": "Hành động"
       },
       "devices": {
         "deviceNameLabel": "Tên thiết bị",
         "failed": "Thất bại khi tải sessions",
         "removeDevice": "Xóa",
-        "title": "Devices"
+        "title": "Thiết bị"
       },
       "profile": {
         "finish": "Hoàn thành",
         "firstColor": "Profile kiểu một",
         "secondColor": "Profile kiểu hai",
         "title": "Chỉnh sửa ảnh Profile",
-        "userIcon": "Biểu tượng "
+        "userIcon": "Biểu tượng"
       },
       "register": {
         "cta": "Bắt đầu",
         "text": "Chia sẻ tiến trình xem của bạn giữa các thiết bị và giữ cho chúng được đồng bộ hóa",
         "title": "Đồng bộ hóa đám mây"
       },
-      "title": "Account"
+      "title": "Tài khoản"
     },
     "appearance": {
       "activeTheme": "Hiện tại",
@@ -255,7 +279,7 @@
         "red": "Red",
         "teal": "Teal"
       },
-      "title": "Appearance"
+      "title": "Giao diện"
     },
     "connections": {
       "server": {
@@ -285,26 +309,26 @@
           "title": "Bạn chưa hoàn tất quá trình thiết lập"
         }
       },
-      "title": "Connections",
+      "title": "Kết nối",
       "workers": {
         "addButton": "thêm worker mới",
-        "description": "Để làm cho ứng dụng hoạt động, tất cả lưu lượng truy cập được chuyển qua proxy. Kích hoạt tính năng này nếu bạn muốn mang theo công nhân của mình",
-        "emptyState": "Chư có workers, thêm ở dưới",
+        "description": "Để làm cho ứng dụng hoạt động, tất cả lưu lượng truy cập được chuyển qua proxy. Kích hoạt tính năng này nếu bạn muốn mang theo cách thủ công của mình",
+        "emptyState": "Chưa có workers, thêm ở dưới",
         "label": "Sử dụng custom proxy workers",
         "urlLabel": "Worker URLs",
         "urlPlaceholder": "https://"
       }
     },
     "preferences": {
-      "language": "Application language",
+      "language": "Ngôn ngữ",
       "languageDescription": "Ngôn ngữ áp dụng cho toàn bộ ứng dụng.",
-      "thumbnail": "Generate thumbnails",
+      "thumbnail": "Tạo thumbnails",
       "thumbnailDescription": "Hầu hết các video không có thumbnails. Bạn có thể bật cài đặt này để tạo chúng nhanh chóng nhưng chúng có thể làm cho video của bạn chậm hơn.",
-      "thumbnailLabel": "Generate thumbnails",
-      "autoplay": "Autoplay",
+      "thumbnailLabel": "Tạo thumbnails",
+      "autoplay": "Tự động phát",
       "autoplayDescription": "Tự động phát tập tiếp theo trong loạt phim sau khi xem hết. Người dùng có thể bật bằng tiện ích mở rộng trình duyệt, proxy tùy chỉnh hoặc bằng cài đặt mặc định nếu được máy chủ cho phép.",
-      "autoplayLabel": "Autoplay",
-      "title": "Preferences"
+      "autoplayLabel": "Tự động phát",
+      "title": "Tùy chọn"
     },
     "reset": "Trở lại",
     "save": "Lưu",
@@ -319,7 +343,7 @@
         "secure": "An toàn",
         "title": "App information",
         "unknownVersion": "Unknown",
-        "userId": "User ID"
+        "userId": "ID người dùng"
       }
     },
     "subtitles": {
@@ -328,7 +352,7 @@
       "colorLabel": "Màu",
       "previewQuote": "Có làm mới có ăn, không làm mà đòi có ăn thì ăn ...",
       "textSizeLabel": "Kích cỡ chữ",
-      "title": "Subtitles"
+      "title": "Phụ đề"
     },
     "unsaved": "Bạn có các thay đổi chưa lưu"
   },

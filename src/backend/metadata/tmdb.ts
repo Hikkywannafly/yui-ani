@@ -315,7 +315,7 @@ export function formatTMDBSearchResult(
 //   return results;
 // }
 
-export async function getDataWithName(query: string, field?: string) {
+export async function getDataWithName(query: string) {
   const data = await multiSearch(query);
   return data.map((r) => formatTMDBSearchResult(r, r.media_type));
 }

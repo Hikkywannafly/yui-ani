@@ -6,6 +6,7 @@ import { getDataWithName } from "@/backend/metadata/tmdb";
 import { TraceImageResponse } from "@/hooks/useTraceImage";
 
 import { TraceCard } from "./TraceCard";
+import { Loading } from "../layout/Loading";
 import { toArray } from "../utils";
 
 interface TracePanelProps {
@@ -79,25 +80,21 @@ function TracePanel(props: TracePanelProps) {
         </div>
         <div className="space-y-8 p-8">
           <div className="flex flex-col items-start gap-4 text-center md:flex-row md:text-left">
-            <div className="mx-auto w-[183px] shrink-0 md:mx-0">
-              <div className="relative aspect-w-2 aspect-h-3">
-                {loading ? (
-                  <p>Loading...</p> // Show loading message when data is being fetched
-                ) : (
-                  <img src={movieDetails?.poster} alt="Movie Poster" />
-                )}
-              </div>
-              {loading ? (
-                <p>Loading...</p> // Show loading message when data is being fetched
-              ) : (
+            {loading ? (
+              <Loading />
+            ) : (
+              <div className="mx-auto w-[183px] shrink-0 md:mx-0">
+                <div className="relative aspect-w-2 aspect-h-3">
+                  <img src={movieDetails[0]?.poster} alt="Movie Poster" />
+                </div>
                 <div className="space-y-4">
                   <h1 className="text-2xl font-semibold">
                     {movieDetails?.title}
                   </h1>
                   <p className="text-gray-300">{card.anime.title.native}</p>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

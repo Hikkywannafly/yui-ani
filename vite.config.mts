@@ -67,8 +67,8 @@ export default defineConfig(({ mode }) => {
           "safari-pinned-tab.svg",
         ],
         manifest: {
-          name: "movie-web",
-          short_name: "movie-web",
+          name: "yui-ani",
+          short_name: "yui-ani",
           description: "The place for your favourite movies & shows",
           theme_color: "#120f1d",
           background_color: "#120f1d",
@@ -149,7 +149,8 @@ export default defineConfig(({ mode }) => {
             }
           }
         }
-      }
+      },
+      chunkSizeWarningLimit: 1600,
     },
     css: {
       postcss: {
