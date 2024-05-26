@@ -296,26 +296,43 @@ export function formatTMDBSearchResult(
   };
 }
 
-// export async function multiSearch(
-//   query: string,
-//   locale?: string,
-// ): Promise<(TMDBMovieSearchResult | TMDBShowSearchResult)[]> {
-//   const data = await get<TMDBSearchResult>("search/multi", {
-//     query,
-//     include_adult: false,
-//     language: locale || "vi-VN",
-//     page: 1,
-//   });
-//   // filter out results that aren't movies or shows
-//   const results = data.results.filter(
-//     (r) =>
-//       r.media_type === TMDBContentTypes.MOVIE ||
-//       r.media_type === TMDBContentTypes.TV,
-//   );
-//   return results;
-// }
+export function formatTMDBResultDetail(
+  result: TMDBMovieSearchResult | TMDBShowSearchResult,
+  mediatype: TMDBContentTypes,
+): any {
+  const type = TMDBMediaToMediaType(mediatype);
+  if (type === MWMediaType.SERIES) {
+    const show = result as TMDBShowSearchResult;
+    return {
+      title: show.name,
+      poster: getMediaPoster(show.poster_path),
+      original_release_date: new Date(show.first_air_date),
+      object_type: mediatype,
+      ...result,
+    };
+  }
+}
+
+export async function SearchDetail(
+  query: string,
+): Promise<(TMDBMovieSearchResult | TMDBShowSearchResult)[]> {
+  const currentLanguage = i18n.language;
+  const data = await get<TMDBSearchResult>("search/multi", {
+    query,
+    include_adult: false,
+    language: currentLanguage,
+    page: 1,
+  });
+  // filter out results that aren't movies or shows
+  const results = data.results.filter(
+    (r) =>
+      r.media_type === TMDBContentTypes.MOVIE ||
+      r.media_type === TMDBContentTypes.TV,
+  );
+  return results;
+}
 
 export async function getDataWithName(query: string) {
   const data = await multiSearch(query);
-  return data.map((r) => formatTMDBSearchResult(r, r.media_type));
+  return data.map((r) => formatTMDBResultDetail(r, r.media_type));
 }

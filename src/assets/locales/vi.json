@@ -358,7 +358,7 @@
   },
   "player": {
     "back": {
-      "default": "Trở về trang chủ",
+      "default": "Trở về",
       "short": "Trở về"
     },
     "casting": {

@@ -21,6 +21,8 @@ export function SceneSearch() {
 
   const { mutate, data, isLoading } = useTraceImage();
 
+  // console.log(data);
+
   const handleOnSearch = useCallback(
     async (images: ImageType) => {
       setImage(images);

@@ -6,16 +6,10 @@ import ReactImageUploading, { ImageType } from "react-images-uploading";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 
-// import { Input } from "../player/internals/ContextMenu/Input";
-// import Button from "@/components/shared/Button";
-// import CircleButton from "@/components/shared/CircleButton";
-// import Input from "@/components/shared/Input";
-// import { isValidUrl } from "@/utils";
-
-// interface TraceImageSearchProps {
-//   onSearch?: (image: any) => void | null;
-// }
-export function TraceImageSearch(props: any) {
+interface TraceImageSearchProps {
+  onSearch: (image: ImageType) => void | any;
+}
+export function TraceImageSearch(props: TraceImageSearchProps) {
   const [image, setImage] = useState<ImageType | null>(null);
   const [inputValue, setInputValue] = useState("");
   const { t } = useTranslation();

@@ -35,7 +35,7 @@ function TracePanel(props: TracePanelProps) {
     }
     fetchMovieDetails();
   }, [card.anime]);
-
+  // console.log(movieDetails);
   const handleCardClick = useCallback((index: number) => {
     setCardIndex(index);
   }, []);
@@ -79,23 +79,52 @@ function TracePanel(props: TracePanelProps) {
           />
         </div>
         <div className="space-y-8 p-8">
-          <div className="flex flex-col items-start gap-4 text-center md:flex-row md:text-left">
-            {loading ? (
-              <Loading />
-            ) : (
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="flex flex-col items-start gap-4 text-center md:flex-row md:text-left">
               <div className="mx-auto w-[183px] shrink-0 md:mx-0">
                 <div className="relative aspect-w-2 aspect-h-3">
                   <img src={movieDetails[0]?.poster} alt="Movie Poster" />
                 </div>
-                <div className="space-y-4">
-                  <h1 className="text-2xl font-semibold">
-                    {movieDetails?.title}
-                  </h1>
-                  <p className="text-gray-300">{card.anime.title.native}</p>
-                </div>
               </div>
-            )}
-          </div>
+              <div className="space-y-4">
+                <h1 className="text-xl font-semibold">
+                  {movieDetails[0]?.title}
+                </h1>
+                <p className="text-gray-300">{card.anime.title.native}</p>
+
+                <div className="flex snap-x snap-mandatory space-x-8 overflow-x-auto md:space-x-16">
+                  {/* <InfoItem
+                      title={t("common:country")}
+                      value={card.anime.countryOfOrigin}
+                    />
+                    <InfoItem
+                      title={t("common:total_episodes")}
+                      value={card.anime.episodes}
+                    />
+
+                    {card.anime.duration && (
+                      <InfoItem
+                        title={t("common:duration")}
+                        value={`${card.anime.duration} ${t("common:minutes")}`}
+                      />
+                    )}
+
+                    <InfoItem
+                      title={t("common:status")}
+                      value={convert(card.anime.status, "status", { locale })}
+                    />
+
+                    <InfoItem
+                      title={t("common:age_rated")}
+                      value={card.anime.isAdult ? "18+" : ""}
+                    /> */}
+                </div>
+                <p> {movieDetails[0]?.overview}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
