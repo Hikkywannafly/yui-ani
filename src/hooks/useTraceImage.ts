@@ -105,7 +105,6 @@ export const useTraceImage = () => {
     if (data.error) throw new Error(data.error);
 
     const anilistIds = data.result.map((result) => result.anilist);
-    // obj to remove to array
     const anilistData = await getMediaAnimeFromAnilist(anilistIds.slice(0, 5));
     const newArray = anilistData.map((item: any) => {
       return {
@@ -113,8 +112,7 @@ export const useTraceImage = () => {
         title: item.Media.title,
       };
     });
-    const newData = composeData(data, newArray);
-    // const datanew = removeDuplicates(newData.result, "anime.id");
+    const newData = await composeData(data, newArray);
     return newData;
   });
 };
