@@ -1,4 +1,4 @@
-import { Qualities, Stream } from "@movie-web/providers";
+import { Qualities, Stream } from "yuiani";
 
 import { QualityStore } from "@/stores/quality";
 

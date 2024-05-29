@@ -1,9 +1,5 @@
-import {
-  EmbedOutput,
-  NotFoundError,
-  SourcererOutput,
-} from "@movie-web/providers";
 import { useAsyncFn } from "react-use";
+import { EmbedOutput, NotFoundError, SourcererOutput } from "yuiani";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
 import { prepareStream } from "@/backend/extension/streams";

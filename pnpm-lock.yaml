@@ -24,9 +24,6 @@ importers:
       '@ladjs/country-language':
         specifier: ^1.0.3
         version: 1.0.3
-      '@movie-web/providers':
-        specifier: ^2.3.0
-        version: 2.3.0
       '@noble/hashes':
         specifier: ^1.3.3
         version: 1.3.3
@@ -148,8 +145,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
       yuiani:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       zustand:
         specifier: ^4.4.7
         version: 4.4.7(@types/react@18.2.45)(immer@10.0.3)(react@18.2.0)
@@ -285,7 +282,7 @@ importers:
         version: 0.5.9(prettier@3.1.1)
       rollup-plugin-visualizer:
         specifier: ^5.11.0
-        version: 5.11.0(@rollup/wasm-node@4.17.2)
+        version: 5.11.0(@rollup/wasm-node@4.18.0)
       tailwind-scrollbar:
         specifier: ^3.0.5
         version: 3.0.5(tailwindcss@3.4.0)
@@ -1601,9 +1598,6 @@ packages:
     resolution: {integrity: sha512-FJROu9/hh4eqVAGDyfL8vpv6Vb0qKHX1ozYLRZ+beUzD5xFf+3r0J+SVIWKviEa7W524Qvqou+ta1WrsRgzxGw==}
     engines: {node: '>= 14'}
 
-  '@movie-web/providers@2.3.0':
-    resolution: {integrity: sha512-jr3C9alAODEyxgWSBMZ6LlrubrZCfpraTuunf7sPpY19WcV8rHbfz1kxeLdBXC2BqPfgQmipVr+KsXvCQqKhXw==}
-
   '@noble/hashes@1.3.3':
     resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
@@ -1692,8 +1686,8 @@ packages:
     peerDependencies:
       rollup: npm:@rollup/wasm-node
 
-  '@rollup/wasm-node@4.17.2':
-    resolution: {integrity: sha512-4F6C3XaUn02XY/GJMQTXncWrLyCkRHdRZe4OyWuQUprWKmU2u+esISOtCYdr3Bp9AqCIo/X3So2Ik7N9dNDwow==}
+  '@rollup/wasm-node@4.18.0':
+    resolution: {integrity: sha512-DkLoyblRMhJw9ZogW9zCpyH0CNJ+7GaM7Ty+Vl+G21z/Gr7uKBaXqcJqwWUiNYVxTOgxZrxhDG6pmOFxOuswvw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -4911,8 +4905,8 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
 
-  yuiani@1.0.0:
-    resolution: {integrity: sha512-YH7ktYI6sEMR4R2ocMMXxSk3m5n4rO/Qe0N8SO1uiy81CsPWxJCuiUhYpg1PitTKua2TyZmQmmSaNhFT0NU4Ig==}
+  yuiani@1.1.0:
+    resolution: {integrity: sha512-4iVG2hO1W+xrVQc9qPTx4dATq7FffB6b26UkA7FWuTnygrJbqKypK5ZBJksBc4y1CXAplbMRJUzO+5RhjE0O7w==}
 
   zustand@4.4.7:
     resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
@@ -6540,18 +6534,6 @@ snapshots:
 
   '@ladjs/country-language@1.0.3': {}
 
-  '@movie-web/providers@2.3.0':
-    dependencies:
-      cheerio: 1.0.0-rc.12
-      cookie: 0.6.0
-      crypto-js: 4.2.0
-      form-data: 4.0.0
-      iso-639-1: 3.1.2
-      nanoid: 3.3.7
-      node-fetch: 3.3.2
-      set-cookie-parser: 2.6.0
-      unpacker: 1.0.1
-
   '@noble/hashes@1.3.3': {}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -6615,39 +6597,39 @@ snapshots:
 
   '@remix-run/router@1.14.1': {}
 
-  '@rollup/plugin-babel@5.3.1(@babel/core@7.24.3)(@rollup/wasm-node@4.17.2)(@types/babel__core@7.20.5)':
+  '@rollup/plugin-babel@5.3.1(@babel/core@7.24.3)(@rollup/wasm-node@4.18.0)(@types/babel__core@7.20.5)':
     dependencies:
       '@babel/core': 7.24.3
       '@babel/helper-module-imports': 7.24.3
-      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.17.2)
-      rollup: '@rollup/wasm-node@4.17.2'
+      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.18.0)
+      rollup: '@rollup/wasm-node@4.18.0'
     optionalDependencies:
       '@types/babel__core': 7.20.5
 
-  '@rollup/plugin-node-resolve@11.2.1(@rollup/wasm-node@4.17.2)':
+  '@rollup/plugin-node-resolve@11.2.1(@rollup/wasm-node@4.18.0)':
     dependencies:
-      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.17.2)
+      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.18.0)
       '@types/resolve': 1.17.1
       builtin-modules: 3.3.0
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.8
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
 
-  '@rollup/plugin-replace@2.4.2(@rollup/wasm-node@4.17.2)':
+  '@rollup/plugin-replace@2.4.2(@rollup/wasm-node@4.18.0)':
     dependencies:
-      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.17.2)
+      '@rollup/pluginutils': 3.1.0(@rollup/wasm-node@4.18.0)
       magic-string: 0.25.9
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
 
-  '@rollup/pluginutils@3.1.0(@rollup/wasm-node@4.17.2)':
+  '@rollup/pluginutils@3.1.0(@rollup/wasm-node@4.18.0)':
     dependencies:
       '@types/estree': 0.0.39
       estree-walker: 1.0.1
       picomatch: 2.3.1
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
 
-  '@rollup/wasm-node@4.17.2':
+  '@rollup/wasm-node@4.18.0':
     dependencies:
       '@types/estree': 1.0.5
     optionalDependencies:
@@ -8744,7 +8726,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.6)
       '@babel/types': 7.23.6
       kleur: 4.1.5
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
       unplugin: 1.5.1
     transitivePeerDependencies:
       - supports-color
@@ -9285,22 +9267,22 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rollup-plugin-terser@7.0.2(@rollup/wasm-node@4.17.2):
+  rollup-plugin-terser@7.0.2(@rollup/wasm-node@4.18.0):
     dependencies:
       '@babel/code-frame': 7.24.2
       jest-worker: 26.6.2
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
       serialize-javascript: 4.0.0
       terser: 5.30.0
 
-  rollup-plugin-visualizer@5.11.0(@rollup/wasm-node@4.17.2):
+  rollup-plugin-visualizer@5.11.0(@rollup/wasm-node@4.18.0):
     dependencies:
       open: 8.4.2
       picomatch: 2.3.1
       source-map: 0.7.4
       yargs: 17.7.2
     optionalDependencies:
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
 
   rrweb-cssom@0.6.0: {}
 
@@ -9970,7 +9952,7 @@ snapshots:
     dependencies:
       esbuild: 0.19.10
       postcss: 8.4.32
-      rollup: '@rollup/wasm-node@4.17.2'
+      rollup: '@rollup/wasm-node@4.18.0'
     optionalDependencies:
       '@types/node': 20.10.5
       fsevents: 2.3.3
@@ -10139,9 +10121,9 @@ snapshots:
       '@babel/core': 7.24.3
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/runtime': 7.24.1
-      '@rollup/plugin-babel': 5.3.1(@babel/core@7.24.3)(@rollup/wasm-node@4.17.2)(@types/babel__core@7.20.5)
-      '@rollup/plugin-node-resolve': 11.2.1(@rollup/wasm-node@4.17.2)
-      '@rollup/plugin-replace': 2.4.2(@rollup/wasm-node@4.17.2)
+      '@rollup/plugin-babel': 5.3.1(@babel/core@7.24.3)(@rollup/wasm-node@4.18.0)(@types/babel__core@7.20.5)
+      '@rollup/plugin-node-resolve': 11.2.1(@rollup/wasm-node@4.18.0)
+      '@rollup/plugin-replace': 2.4.2(@rollup/wasm-node@4.18.0)
       '@surma/rollup-plugin-off-main-thread': 2.2.3
       ajv: 8.12.0
       common-tags: 1.8.2
@@ -10150,8 +10132,8 @@ snapshots:
       glob: 7.2.3
       lodash: 4.17.21
       pretty-bytes: 5.6.0
-      rollup: '@rollup/wasm-node@4.17.2'
-      rollup-plugin-terser: 7.0.2(@rollup/wasm-node@4.17.2)
+      rollup: '@rollup/wasm-node@4.18.0'
+      rollup-plugin-terser: 7.0.2(@rollup/wasm-node@4.18.0)
       source-map: 0.8.0-beta.0
       stringify-object: 3.3.0
       strip-comments: 2.0.1
@@ -10281,8 +10263,9 @@ snapshots:
 
   yocto-queue@1.0.0: {}
 
-  yuiani@1.0.0:
+  yuiani@1.1.0:
     dependencies:
+      axios: 1.6.8
       cheerio: 1.0.0-rc.12
       cookie: 0.6.0
       crypto-js: 4.2.0
@@ -10292,6 +10275,8 @@ snapshots:
       node-fetch: 3.3.2
       set-cookie-parser: 2.6.0
       unpacker: 1.0.1
+    transitivePeerDependencies:
+      - debug
 
   zustand@4.4.7(@types/react@18.2.45)(immer@10.0.3)(react@18.2.0):
     dependencies:
