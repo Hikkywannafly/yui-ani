@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +6,7 @@ import { get } from "@/backend/metadata/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { Divider } from "@/components/utils/Divider";
 import { Flare } from "@/components/utils/Flare";
+import { HomeLayout } from "@/pages/layouts/HomeLayout";
 import { conf } from "@/setup/config";
 import {
   Category,
@@ -18,13 +18,14 @@ import {
   tvCategories,
 } from "@/utils/discover";
 
-import { SubPageLayout } from "./layouts/SubPageLayout";
+import { HeroPart2 } from "./parts/home/HeroPart2";
 import { PageTitle } from "./parts/util/PageTitle";
 // import placeholderImageLogo from "../../public/placeholder.png";
 import { Icon, Icons } from "../components/Icon";
 
 export function Discover() {
   const { t } = useTranslation();
+  const [showBg, setShowBg] = useState<boolean>(false);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
   const [genreMovies, setGenreMovies] = useState<{
@@ -488,25 +489,17 @@ export function Discover() {
   }, [countdown]);
 
   return (
-    <SubPageLayout>
+    <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        <Helmet>
-          {/* Hide scrollbar lmao */}
-          <style type="text/css">{`
+        {/* Hide scrollbar lmao */}
+        {/* <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style>
-        </Helmet>
+          `}</style> */}
         <PageTitle subpage k="global.pages.discover" />
-        <div className="mt-44 space-y-16 text-center">
-          <div className="relative z-10 mb-16">
-            <h1 className="text-4xl cursor-default font-bold text-white">
-              {t("global.pages.discover")}
-            </h1>
-          </div>
-        </div>
+        <HeroPart2 title="global.pages.discover" setIsSticky={setShowBg} />
       </div>
       <WideContainer ultraWide>
         <div className="flex items-center justify-center mb-6">
@@ -527,13 +520,6 @@ export function Discover() {
               ) : (
                 <div className="flex items-center inline-block">
                   <span>Watch Something New</span>
-                  <img
-                    src="/lightbar-images/dice.svg"
-                    alt="Small Image"
-                    style={{
-                      marginLeft: "8px",
-                    }}
-                  />
                 </div>
               )}
             </span>
@@ -595,6 +581,6 @@ export function Discover() {
           ))}
         </div>
       </WideContainer>
-    </SubPageLayout>
+    </HomeLayout>
   );
 }
