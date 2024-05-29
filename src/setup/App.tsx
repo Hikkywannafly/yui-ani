@@ -16,6 +16,7 @@ import { useOnlineListener } from "@/hooks/usePing";
 import { AboutPage } from "@/pages/About";
 import { AdminPage } from "@/pages/admin/AdminPage";
 import VideoTesterView from "@/pages/developer/VideoTesterView";
+import { Discover } from "@/pages/Discover";
 import { DmcaPage, shouldHaveDmcaPage } from "@/pages/Dmca";
 import { NotFoundPage } from "@/pages/errors/NotFoundPage";
 import { HomePage } from "@/pages/HomePage";
@@ -159,6 +160,7 @@ function App() {
         {/* other */}
         <Route path="/dev" element={<DeveloperPage />} />
         <Route path="/dev/video" element={<VideoTesterView />} />
+        <Route path="/discover" element={<Discover />} />
         {/* developer routes that can abuse workers are disabled in production */}
         {process.env.NODE_ENV === "development" ? (
           <Route path="/dev/test" element={<TestView />} />

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { get } from "@/backend/metadata/tmdb";
-import { ThinContainer } from "@/components/layout/ThinContainer";
+import { WideContainer } from "@/components/layout/WideContainer";
 import { Divider } from "@/components/utils/Divider";
 import { Flare } from "@/components/utils/Flare";
 import { conf } from "@/setup/config";
@@ -508,7 +508,7 @@ export function Discover() {
           </div>
         </div>
       </div>
-      <ThinContainer>
+      <WideContainer ultraWide>
         <div className="flex items-center justify-center mb-6">
           <button
             type="button"
@@ -594,7 +594,7 @@ export function Discover() {
             </div>
           ))}
         </div>
-      </ThinContainer>
+      </WideContainer>
     </SubPageLayout>
   );
 }

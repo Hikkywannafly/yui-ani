@@ -164,7 +164,8 @@
       "onboarding": "Cài đặt",
       "pagetitle": "{{title}} - yui-ani",
       "register": "Đăng ký",
-      "settings": "Cài đặt"
+      "settings": "Cài đặt",
+      "discover": "Khám phá"
     }
   },
   "home": {
@@ -550,5 +551,15 @@
   },
   "common": {
     "episode": "Tập"
+  },
+  "discover": {
+    "title": "Khám phá",
+    "popular": "Phổ biến",
+    "trending": "Xu hướng",
+    "airing": "Đang phát",
+    "upcoming": "Sắp tới",
+    "movies": "Phim",
+    "shows": "Chương trình truyền hình",
+    "search": "Tìm kiếm"
   }
 }

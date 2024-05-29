@@ -13,6 +13,7 @@ import { useBannerSize } from "@/stores/banner";
 
 import { Anime } from "./Anime";
 import { BrandPill } from "./BrandPill";
+import { Discover } from "./Discover";
 import { SceneSearch } from "./SceneSearch";
 
 export interface NavigationProps {
@@ -93,8 +94,14 @@ export function Navigation(props: NavigationProps) {
                 className="block tabbable rounded-full text-xs ssm:text-base"
                 href="/anime"
               >
-                <Anime clickable />
+                <Anime hideTextOnMobile clickable />
               </GoToLink>
+              <Link
+                className="block tabbable rounded-full text-xs ssm:text-base"
+                to="/discover"
+              >
+                <Discover hideTextOnMobile clickable />
+              </Link>
               <Link
                 className="block tabbable rounded-full text-xs ssm:text-base"
                 to="/scene-search"

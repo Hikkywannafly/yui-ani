@@ -103,7 +103,8 @@
       "onboarding": "Setup",
       "pagetitle": "{{title}} - yui-ani",
       "register": "Register",
-      "settings": "Settings"
+      "settings": "Settings",
+      "discover": "Khám phá"
     }
   },
   "home": {
