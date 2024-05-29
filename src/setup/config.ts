@@ -97,11 +97,11 @@ export function conf(): RuntimeConfig {
     DMCA_EMAIL: getKey("DMCA_EMAIL"),
     ONBOARDING_CHROME_EXTENSION_INSTALL_LINK: getKey(
       "ONBOARDING_CHROME_EXTENSION_INSTALL_LINK",
-      "https://chromewebstore.google.com/detail/movie-web-extension/hoffoikpiofojilgpofjhnkkamfnnhmm",
+      "https://github.com/Hikkywannafly/yuiani-ext/releases/download/yui-ani_v1.1.4/chrome-mv3-prod.zip",
     ),
     ONBOARDING_FIREFOX_EXTENSION_INSTALL_LINK: getKey(
       "ONBOARDING_FIREFOX_EXTENSION_INSTALL_LINK",
-      "https://addons.mozilla.org/en-GB/firefox/addon/movie-web-extension",
+      "",
     ),
     ONBOARDING_PROXY_INSTALL_LINK: getKey("ONBOARDING_PROXY_INSTALL_LINK"),
     BACKEND_URL: getKey("BACKEND_URL", BACKEND_URL),
