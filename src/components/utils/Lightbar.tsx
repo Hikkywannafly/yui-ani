@@ -138,7 +138,7 @@ function ParticlesCanvas() {
     canvas.height = canvas.scrollHeight;
 
     // Basic particle config
-    const particleCount = 20;
+    const particleCount = 30;
     let imageParticleCount = particleCount;
 
     // Holiday overrides
@@ -158,14 +158,30 @@ function ParticlesCanvas() {
         },
       ];
     }
+    if ((month === 5 || 6 || 7) && day >= 0 && day <= 31) {
+      imageOverride = [
+        {
+          image: "/lightbar-images/bocchi.png",
+          sizeRange: [30, 31] as [number, number],
+        },
+        {
+          image: "/lightbar-images/Sakura_blossom.png",
+          sizeRange: [15, 16] as [number, number],
+        },
+      ];
+    }
 
     // Fish easter egg
     const shouldShowFishie = Math.floor(Math.random() * 600) === 69;
     if (shouldShowFishie) {
       imageOverride = [
         {
-          image: "/lightbar-images/fishie.png",
-          sizeRange: [10, 11] as [number, number],
+          image: "/lightbar-images/bocchi.png",
+          sizeRange: [40, 41] as [number, number],
+        },
+        {
+          image: "/lightbar-images/Sakura_blossom.png",
+          sizeRange: [30, 31] as [number, number],
         },
       ];
       imageParticleCount = particleCount / 2;
