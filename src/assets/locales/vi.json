@@ -312,7 +312,7 @@
       },
       "title": "Kết nối",
       "workers": {
-        "addButton": "thêm worker mới",
+        "addButton": "Thêm worker mới",
         "description": "Để làm cho ứng dụng hoạt động, tất cả lưu lượng truy cập được chuyển qua proxy. Kích hoạt tính năng này nếu bạn muốn mang theo cách thủ công của mình",
         "emptyState": "Chưa có workers, thêm ở dưới",
         "label": "Sử dụng custom proxy workers",

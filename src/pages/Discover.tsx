@@ -8,6 +8,7 @@ import { Divider } from "@/components/utils/Divider";
 import { Flare } from "@/components/utils/Flare";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
 import { conf } from "@/setup/config";
+import i18n from "@/setup/i18n";
 import {
   Category,
   Genre,
@@ -24,7 +25,8 @@ import { PageTitle } from "./parts/util/PageTitle";
 import { Icon, Icons } from "../components/Icon";
 
 export function Discover() {
-  const { t } = useTranslation();
+  useTranslation();
+  const currentLansguage = i18n.language;
   const [showBg, setShowBg] = useState<boolean>(false);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
@@ -54,7 +56,7 @@ export function Discover() {
       try {
         const data = await get<any>(category.endpoint, {
           api_key: conf().TMDB_READ_API_KEY,
-          language: "en-US",
+          language: currentLansguage,
         });
 
         // Shuffle the movies
@@ -78,14 +80,14 @@ export function Discover() {
       }
     };
     categories.forEach(fetchMoviesForCategory);
-  }, []);
+  }, [currentLansguage]);
 
   useEffect(() => {
     const fetchShowsForCategory = async (category: Category) => {
       try {
         const data = await get<any>(category.endpoint, {
           api_key: conf().TMDB_READ_API_KEY,
-          language: "en-US",
+          language: currentLansguage,
         });
 
         // Shuffle the TV shows
@@ -109,7 +111,7 @@ export function Discover() {
       }
     };
     tvCategories.forEach(fetchShowsForCategory);
-  }, []);
+  }, [currentLansguage]);
 
   // Fetch TV show genres
   useEffect(() => {
@@ -117,7 +119,7 @@ export function Discover() {
       try {
         const data = await get<any>("/genre/tv/list", {
           api_key: conf().TMDB_READ_API_KEY,
-          language: "en-US",
+          language: currentLansguage,
         });
 
         // Shuffle the array of genres
@@ -134,7 +136,7 @@ export function Discover() {
     };
 
     fetchTVGenres();
-  }, []);
+  }, [currentLansguage]);
 
   // Fetch TV shows for each genre
   useEffect(() => {
@@ -143,7 +145,7 @@ export function Discover() {
         const data = await get<any>("/discover/tv", {
           api_key: conf().TMDB_READ_API_KEY,
           with_genres: genreId.toString(),
-          language: "en-US",
+          language: currentLansguage,
         });
 
         // Shuffle the TV shows
@@ -165,7 +167,7 @@ export function Discover() {
     };
 
     tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
-  }, [tvGenres]);
+  }, [currentLansguage, tvGenres]);
 
   // Update the scrollCarousel function to use the new ref map
   function scrollCarousel(categorySlug: string, direction: string) {
@@ -448,7 +450,7 @@ export function Discover() {
           const data = await get<any>("/discover/movie", {
             api_key: conf().TMDB_READ_API_KEY,
             with_genres: genreId.toString(),
-            language: "en-US",
+            language: currentLansguage,
             page: page.toString(),
           });
 
@@ -471,7 +473,7 @@ export function Discover() {
     };
 
     genres.forEach((genre) => fetchMoviesForGenre(genre.id));
-  }, [genres]);
+  }, [genres, currentLansguage]);
 
   useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
