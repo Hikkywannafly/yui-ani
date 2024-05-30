@@ -136,15 +136,18 @@ export async function getLegacyMetaFromId(
   }
 
   let imdbId = data.external_ids.find(
+    // prettier-ignore
     (v) => v.provider === "imdb_latest",
   )?.external_id;
   if (!imdbId)
     imdbId = data.external_ids.find((v) => v.provider === "imdb")?.external_id;
 
   let tmdbId = data.external_ids.find(
+    // prettier-ignore
     (v) => v.provider === "tmdb_latest",
   )?.external_id;
   if (!tmdbId)
+    // prettier-ignore
     tmdbId = data.external_ids.find((v) => v.provider === "tmdb")?.external_id;
 
   let seasonData: JWSeasonMetaResult | undefined;
