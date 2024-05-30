@@ -329,9 +329,11 @@
       "autoplay": "Tự động phát",
       "autoplayDescription": "Tự động phát tập tiếp theo trong loạt phim sau khi xem hết. Người dùng có thể bật bằng tiện ích mở rộng trình duyệt, proxy tùy chỉnh hoặc bằng cài đặt mặc định nếu được máy chủ cho phép.",
       "autoplayLabel": "Tự động phát",
-      "title": "Tùy chọn"
+      "title": "Tùy chọn",
+      "sourceOrder": "Ưu tiên nguồn",
+      "sourceOrderDescription": "Kéo và thả để sắp xếp lại các source. Điều này sẽ xác định thứ tự các nguồn được ưu tiên để kiểm tra cho media bạn  xem. Nếu một nguồn có màu xám, điều đó có nghĩa là nguồn đó không khả dụng trên thiết bị của bạn."
     },
-    "reset": "Trở lại",
+    "reset": "Khôi phục",
     "save": "Lưu",
     "sidebar": {
       "info": {
