@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ import { PageTitle } from "./parts/util/PageTitle";
 import { Icon, Icons } from "../components/Icon";
 
 export function Discover() {
-  useTranslation();
+  const { t } = useTranslation();
   const currentLansguage = i18n.language;
   const [showBg, setShowBg] = useState<boolean>(false);
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -494,14 +495,14 @@ export function Discover() {
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
         {/* Hide scrollbar lmao */}
-        {/* <style type="text/css">{`
+        <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style> */}
+          `}</style>
         <PageTitle subpage k="global.pages.discover" />
-        <HeroPart2 title="global.pages.discover" setIsSticky={setShowBg} />
+        <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
       <WideContainer ultraWide>
         <div className="flex items-center justify-center mb-6">
@@ -512,7 +513,7 @@ export function Discover() {
           >
             <span className="flex items-center">
               {countdown !== null && countdown > 0 ? (
-                <div className="flex items-center inline-block">
+                <div className="flex items-center ">
                   <span>Cancel Countdown</span>
                   <Icon
                     icon={Icons.X}
@@ -520,7 +521,7 @@ export function Discover() {
                   />
                 </div>
               ) : (
-                <div className="flex items-center inline-block">
+                <div className="flex items-center ">
                   <span>Watch Something New</span>
                 </div>
               )}

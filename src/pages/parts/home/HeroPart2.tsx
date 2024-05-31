@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import Sticky from "react-sticky-el";
 import { useWindowSize } from "react-use";
 
@@ -23,9 +22,7 @@ export function HeroPart2({ setIsSticky, title }: HeroPartProps) {
     },
     [setShowBg, setIsSticky],
   );
-  const { t } = useTranslation();
   const { width: windowWidth } = useWindowSize();
-  const subPageTitle = t(title);
   const topSpacing = 16;
   const [stickyOffset, setStickyOffset] = useState(topSpacing);
   useEffect(() => {
@@ -44,7 +41,7 @@ export function HeroPart2({ setIsSticky, title }: HeroPartProps) {
     <ThinContainer>
       <div className="mt-44 space-y-16 text-center">
         <div className="relative z-10 mb-16">
-          <HeroTitle className="mx-auto max-w-md">{subPageTitle}</HeroTitle>
+          <HeroTitle className="mx-auto max-w-md">{title}</HeroTitle>
         </div>
         <div className="relative h-20 z-30">
           <Sticky
