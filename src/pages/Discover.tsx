@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { get } from "@/backend/metadata/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
+import { MediaCard } from "@/components/media/MediaCard";
 import { Divider } from "@/components/utils/Divider";
 import { Flare } from "@/components/utils/Flare";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
@@ -19,6 +19,7 @@ import {
   categories,
   tvCategories,
 } from "@/utils/discover";
+import { MediaItem } from "@/utils/mediaTypes";
 
 import { HeroPart2 } from "./parts/home/HeroPart2";
 import { PageTitle } from "./parts/util/PageTitle";
@@ -278,6 +279,67 @@ export function Discover() {
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
+  function renderMovies2(medias: Media[], category: string, isTVShow = false) {
+    const categorySlug = `${category
+      .toLowerCase()
+      .replace(/ /g, "-")}${Math.random()}`; // Convert the category to a slug
+    const displayCategory =
+      category === "Now Playing"
+        ? "In Cinemas"
+        : category.includes("Movie")
+          ? `${category}s`
+          : isTVShow
+            ? `${category} Shows`
+            : `${category} Movies`;
+
+    return (
+      <div className="relative overflow-hidden mt-2 ">
+        <h2 className="text-2xl cursor-default font-bold text-white sm:text-3xl md:text-2xl mx-auto pl-5">
+          {displayCategory}
+        </h2>
+        <div
+          // id={`carousel-${categorySlug}`}
+          className="flex whitespace-nowrap pt-4 overflow-auto scrollbar rounded-xl overflow-y-hidden"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "transparent transparent",
+          }}
+          // ref={(el) => {
+          //   carouselRefs.current[categorySlug] = el;
+          // }}
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          // onWheel={(e) => handleWheel(e, categorySlug)}
+        >
+          {medias.slice(0, 20).map((media: any) => (
+            <MediaCard media={media} linkable />
+          ))}
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            type="button"
+            title="Back"
+            className="absolute left-5 top-1/2 transform -translate-y-3/4 z-10"
+            onClick={() => scrollCarousel(categorySlug, "left")}
+          >
+            <div className="cursor-pointer text-white flex justify-center items-center h-10 w-10 rounded-full bg-search-hoverBackground active:scale-110 transition-[transform,background-color] duration-200">
+              <Icon icon={Icons.ARROW_LEFT} />
+            </div>
+          </button>
+          <button
+            type="button"
+            title="Next"
+            className="absolute right-5 top-1/2 transform -translate-y-3/4 z-10"
+            onClick={() => scrollCarousel(categorySlug, "right")}
+          >
+            <div className="cursor-pointer text-white flex justify-center items-center h-10 w-10 rounded-full bg-search-hoverBackground active:scale-110 transition-[transform,background-color] duration-200">
+              <Icon icon={Icons.ARROW_RIGHT} />
+            </div>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   function renderMovies(medias: Media[], category: string, isTVShow = false) {
     const categorySlug = `${category
@@ -543,9 +605,13 @@ export function Discover() {
               id={`carousel-${category.name.toLowerCase().replace(/ /g, "-")}`}
               className="mt-8"
             >
-              {renderMovies(categoryMovies[category.name] || [], category.name)}
+              {renderMovies2(
+                categoryMovies[category.name] || [],
+                category.name,
+              )}
             </div>
           ))}
+
           {genres.map((genre) => (
             <div
               key={genre.id}

@@ -2,6 +2,7 @@ import slugify from "slugify";
 
 import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
+import { Category } from "@/utils/discover";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { MWMediaMeta, MWMediaType, MWSeasonMeta } from "./types/mw";
@@ -336,3 +337,7 @@ export async function getDataWithName(query: string) {
   const data = await multiSearch(query);
   return data.map((r) => formatTMDBResultDetail(r, r.media_type));
 }
+
+// export async function getShowsForCategory(category: Category) {
+
+// }
