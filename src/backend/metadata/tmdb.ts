@@ -296,6 +296,36 @@ export function formatTMDBSearchResult(
     object_type: mediatype,
   };
 }
+export function formatTMDBDiscoverResult(
+  result: TMDBMovieSearchResult | TMDBShowSearchResult,
+  mediatype?: TMDBContentTypes,
+): MediaItem {
+  if (mediatype) {
+    const type = TMDBMediaToMediaType(mediatype);
+    if (type === MWMediaType.SERIES) {
+      const show = result as TMDBShowSearchResult;
+      return {
+        title: show.name,
+        poster: getMediaPoster(show.poster_path),
+        id: show.id.toString(),
+        year: new Date(show.first_air_date).getFullYear(),
+        release_date: new Date(show.first_air_date),
+        type: "show",
+      };
+    }
+  }
+
+  const movie = result as TMDBMovieSearchResult;
+
+  return {
+    title: movie.title,
+    poster: getMediaPoster(movie.poster_path),
+    id: movie.id.toString(),
+    year: new Date(movie.release_date).getFullYear(),
+    release_date: new Date(movie.release_date),
+    type: "movie",
+  };
+}
 
 export function formatTMDBResultDetail(
   result: TMDBMovieSearchResult | TMDBShowSearchResult,
@@ -312,6 +342,15 @@ export function formatTMDBResultDetail(
       ...result,
     };
   }
+  const movie = result as TMDBMovieSearchResult;
+
+  return {
+    title: movie.title,
+    poster: getMediaPoster(movie.poster_path),
+    original_release_date: new Date(movie.release_date),
+    object_type: mediatype,
+    ...result,
+  };
 }
 
 export async function SearchDetail(

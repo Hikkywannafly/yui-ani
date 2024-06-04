@@ -2,16 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { fetchForCategory } from "@/backend/metadata/discover";
 import { get } from "@/backend/metadata/tmdb";
+import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { MediaCard } from "@/components/media/MediaCard";
+import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
 import { Divider } from "@/components/utils/Divider";
 import { Flare } from "@/components/utils/Flare";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
 import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
 import {
-  Category,
   Genre,
   Media,
   Movie,
@@ -38,10 +40,10 @@ export function Discover() {
   const [countdown, setCountdown] = useState<number | null>(null);
   const navigate = useNavigate();
   const [categoryShows, setCategoryShows] = useState<{
-    [categoryName: string]: Movie[];
+    [categoryName: string]: MediaItem[];
   }>({});
   const [categoryMovies, setCategoryMovies] = useState<{
-    [categoryName: string]: Movie[];
+    [categoryName: string]: MediaItem[];
   }>({});
   const [tvGenres, setTVGenres] = useState<Genre[]>([]);
   const [tvShowGenres, setTVShowGenres] = useState<{
@@ -54,66 +56,21 @@ export function Discover() {
     useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const fetchMoviesForCategory = async (category: Category) => {
-      try {
-        const data = await get<any>(category.endpoint, {
-          api_key: conf().TMDB_READ_API_KEY,
-          language: currentLansguage,
-        });
-
-        // Shuffle the movies
-        for (let i = data.results.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.results[i], data.results[j]] = [
-            data.results[j],
-            data.results[i],
-          ];
-        }
-
-        setCategoryMovies((prevCategoryMovies) => ({
-          ...prevCategoryMovies,
-          [category.name]: data.results,
-        }));
-      } catch (error) {
-        console.error(
-          `Error fetching movies for category ${category.name}:`,
-          error,
-        );
-      }
-    };
-    categories.forEach(fetchMoviesForCategory);
+    categories.forEach((category) =>
+      fetchForCategory(category, setCategoryMovies, currentLansguage),
+    );
   }, [currentLansguage]);
 
-  useEffect(() => {
-    const fetchShowsForCategory = async (category: Category) => {
-      try {
-        const data = await get<any>(category.endpoint, {
-          api_key: conf().TMDB_READ_API_KEY,
-          language: currentLansguage,
-        });
-
-        // Shuffle the TV shows
-        for (let i = data.results.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.results[i], data.results[j]] = [
-            data.results[j],
-            data.results[i],
-          ];
-        }
-
-        setCategoryShows((prevCategoryShows) => ({
-          ...prevCategoryShows,
-          [category.name]: data.results,
-        }));
-      } catch (error) {
-        console.error(
-          `Error fetching movies for category ${category.name}:`,
-          error,
-        );
-      }
-    };
-    tvCategories.forEach(fetchShowsForCategory);
-  }, [currentLansguage]);
+  // useEffect(() => {
+  //   tvCategories.forEach((category) =>
+  //     fetchForCategory(
+  //       category,
+  //       setCategoryShows,
+  //       currentLansguage,
+  //       TMDBContentTypes.TV,
+  //     ),
+  //   );
+  // }, [currentLansguage]);
 
   // Fetch TV show genres
   useEffect(() => {
@@ -279,7 +236,11 @@ export function Discover() {
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
-  function renderMovies2(medias: Media[], category: string, isTVShow = false) {
+  function renderMovies2(
+    medias: MediaItem[],
+    category: string,
+    isTVShow = false,
+  ) {
     const categorySlug = `${category
       .toLowerCase()
       .replace(/ /g, "-")}${Math.random()}`; // Convert the category to a slug
@@ -293,26 +254,40 @@ export function Discover() {
             : `${category} Movies`;
 
     return (
-      <div className="relative overflow-hidden mt-2 ">
+      <div className=" relative overflow-hidden mt-2">
         <h2 className="text-2xl cursor-default font-bold text-white sm:text-3xl md:text-2xl mx-auto pl-5">
           {displayCategory}
         </h2>
         <div
-          // id={`carousel-${categorySlug}`}
-          className="flex whitespace-nowrap pt-4 overflow-auto scrollbar rounded-xl overflow-y-hidden"
+          id={`carousel-${categorySlug}`}
+          className="flex pt-4 overflow-auto scrollbar overflow-y-hidden gap-6 mt-5"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "transparent transparent",
           }}
-          // ref={(el) => {
-          //   carouselRefs.current[categorySlug] = el;
-          // }}
-          // onMouseEnter={handleMouseEnter}
-          // onMouseLeave={handleMouseLeave}
-          // onWheel={(e) => handleWheel(e, categorySlug)}
+          ref={(el) => {
+            carouselRefs.current[categorySlug] = el;
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onWheel={(e) => handleWheel(e, categorySlug)}
         >
           {medias.slice(0, 20).map((media: any) => (
-            <MediaCard media={media} linkable />
+            // <a
+            //   key={media.id}
+            //   onClick={() =>
+            //     navigate(
+            //       `/media/tmdb-${isTVShow ? "tv" : "movie"}-${media.id}-${
+            //         isTVShow ? media.name : media.title
+            //       }`,
+            //     )
+            //   }
+            //   className=""
+            //   style={{ flex: `0 0 ${movieWidth}` }} // Set a fixed width for each movie
+            // >
+            <a key={media.id}>
+              <WatchedMediaCard media={media} key={media.id} />
+            </a>
           ))}
         </div>
         <div className="flex items-center justify-center">
@@ -557,12 +532,12 @@ export function Discover() {
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
         {/* Hide scrollbar lmao */}
-        <style type="text/css">{`
+        {/* <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style>
+          `}</style> */}
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
@@ -632,7 +607,7 @@ export function Discover() {
               id={`carousel-${category.name.toLowerCase().replace(/ /g, "-")}`}
               className="mt-8"
             >
-              {renderMovies(
+              {renderMovies2(
                 categoryShows[category.name] || [],
                 category.name,
                 true,

@@ -287,3 +287,7 @@ export interface TMDBSearchResult {
   total_pages: number;
   total_results: number;
 }
+
+export interface TMDBDiscoverResult {
+  results: (TMDBMovieSearchResult | TMDBShowSearchResult)[];
+}

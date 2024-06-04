@@ -33,25 +33,25 @@ export interface Category {
 export const categories: Category[] = [
   {
     name: "Now Playing",
-    endpoint: "/movie/now_playing?language=en-US",
+    endpoint: "/movie/now_playing",
   },
   {
     name: "Top Rated",
-    endpoint: "/movie/top_rated?language=en-US",
+    endpoint: "/movie/top_rated",
   },
   {
     name: "Most Popular",
-    endpoint: "/movie/popular?language=en-US",
+    endpoint: "/movie/popular",
   },
 ];
 
 export const tvCategories: Category[] = [
   {
     name: "Top Rated",
-    endpoint: "/tv/top_rated?language=en-US",
+    endpoint: "/tv/top_rated",
   },
   {
     name: "Most Popular",
-    endpoint: "/tv/popular?language=en-US",
+    endpoint: "/tv/popular",
   },
 ];
