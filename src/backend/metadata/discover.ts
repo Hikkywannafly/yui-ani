@@ -6,23 +6,22 @@ import { TMDBContentTypes, TMDBSearchResult } from "./types/tmdb";
 
 export const fetchForCategory = async (
   category: Category,
-  setState: any,
-  currentLanguage: any,
+  setState: React.Dispatch<React.SetStateAction<any>>,
+  currentLanguage: string,
   mediatype?: TMDBContentTypes,
+  withGenre?: string,
 ) => {
   try {
     const data = await get<TMDBSearchResult>(category.endpoint, {
       api_key: conf().TMDB_READ_API_KEY,
+      with_genres: withGenre,
       language: currentLanguage,
     });
-    console.log(data);
 
     const dataFormat = data.results.map((r: any) =>
       formatTMDBDiscoverResult(r, mediatype),
     );
 
-    // Shuffle the movies
-    // console.log(dataFormat);
     for (let i = dataFormat.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
       [dataFormat[i], dataFormat[j]] = [dataFormat[j], dataFormat[i]];

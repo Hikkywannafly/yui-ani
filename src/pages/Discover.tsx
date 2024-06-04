@@ -19,13 +19,13 @@ import {
   Movie,
   TVShow,
   categories,
+  ortherCategories,
   tvCategories,
 } from "@/utils/discover";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { HeroPart2 } from "./parts/home/HeroPart2";
 import { PageTitle } from "./parts/util/PageTitle";
-// import placeholderImageLogo from "../../public/placeholder.png";
 import { Icon, Icons } from "../components/Icon";
 
 export function Discover() {
@@ -61,71 +61,38 @@ export function Discover() {
     );
   }, [currentLansguage]);
 
-  // useEffect(() => {
-  //   tvCategories.forEach((category) =>
-  //     fetchForCategory(
-  //       category,
-  //       setCategoryShows,
-  //       currentLansguage,
-  //       TMDBContentTypes.TV,
-  //     ),
-  //   );
-  // }, [currentLansguage]);
+  useEffect(() => {
+    tvCategories.forEach((category) =>
+      fetchForCategory(
+        category,
+        setCategoryShows,
+        currentLansguage,
+        TMDBContentTypes.TV,
+      ),
+    );
+  }, [currentLansguage]);
 
   // Fetch TV show genres
   useEffect(() => {
-    const fetchTVGenres = async () => {
-      try {
-        const data = await get<any>("/genre/tv/list", {
-          api_key: conf().TMDB_READ_API_KEY,
-          language: currentLansguage,
-        });
-
-        // Shuffle the array of genres
-        for (let i = data.genres.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.genres[i], data.genres[j]] = [data.genres[j], data.genres[i]];
-        }
-
-        // Fetch only the first 6 TV show genres
-        setTVGenres(data.genres.slice(0, 6));
-      } catch (error) {
-        console.error("Error fetching TV show genres:", error);
-      }
-    };
-
-    fetchTVGenres();
+    fetchForCategory(
+      ortherCategories[0],
+      setTVGenres,
+      currentLansguage,
+      TMDBContentTypes.TV,
+    );
   }, [currentLansguage]);
 
   // Fetch TV shows for each genre
   useEffect(() => {
-    const fetchTVShowsForGenre = async (genreId: number) => {
-      try {
-        const data = await get<any>("/discover/tv", {
-          api_key: conf().TMDB_READ_API_KEY,
-          with_genres: genreId.toString(),
-          language: currentLansguage,
-        });
-
-        // Shuffle the TV shows
-        for (let i = data.results.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.results[i], data.results[j]] = [
-            data.results[j],
-            data.results[i],
-          ];
-        }
-
-        setTVShowGenres((prevTVShowGenres) => ({
-          ...prevTVShowGenres,
-          [genreId]: data.results,
-        }));
-      } catch (error) {
-        console.error(`Error fetching TV shows for genre ${genreId}:`, error);
-      }
-    };
-
-    tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
+    tvGenres.forEach((genre) =>
+      fetchForCategory(
+        ortherCategories[1],
+        setTVShowGenres,
+        currentLansguage,
+        TMDBContentTypes.TV,
+        genre.id.toString(),
+      ),
+    );
   }, [currentLansguage, tvGenres]);
 
   // Update the scrollCarousel function to use the new ref map
@@ -194,7 +161,7 @@ export function Discover() {
     isScrolling = true;
 
     const carousel = carouselRefs.current[categorySlug];
-    if (carousel) {
+    if (carousel && !e.deltaX) {
       const movieElements = carousel.getElementsByTagName("a");
       if (movieElements.length > 0) {
         const posterWidth = movieElements[0].offsetWidth;
@@ -207,7 +174,6 @@ export function Discover() {
         }
       }
     }
-
     setTimeout(() => {
       isScrolling = false;
     }, 345); // Disable scrolling every 3 milliseconds after interaction (only for mouse wheel doe)
@@ -254,7 +220,7 @@ export function Discover() {
             : `${category} Movies`;
 
     return (
-      <div className=" relative overflow-hidden mt-2">
+      <div className="relative overflow-hidden mt-2">
         <h2 className="text-2xl cursor-default font-bold text-white sm:text-3xl md:text-2xl mx-auto pl-5">
           {displayCategory}
         </h2>
@@ -272,126 +238,16 @@ export function Discover() {
           onMouseLeave={handleMouseLeave}
           onWheel={(e) => handleWheel(e, categorySlug)}
         >
-          {medias.slice(0, 20).map((media: any) => (
-            // <a
-            //   key={media.id}
-            //   onClick={() =>
-            //     navigate(
-            //       `/media/tmdb-${isTVShow ? "tv" : "movie"}-${media.id}-${
-            //         isTVShow ? media.name : media.title
-            //       }`,
-            //     )
-            //   }
-            //   className=""
-            //   style={{ flex: `0 0 ${movieWidth}` }} // Set a fixed width for each movie
-            // >
-            <a key={media.id}>
+          {medias.map((media: any) => (
+            <a
+              key={media.id}
+              // className="text-center relative mt-3 mx-[0.285em] mb-3 transition-transform hover:scale-105 duration-[0.45s]"
+              style={{ flex: `0 0 ${movieWidth}` }}
+            >
               <WatchedMediaCard media={media} key={media.id} />
             </a>
           ))}
         </div>
-        <div className="flex items-center justify-center">
-          <button
-            type="button"
-            title="Back"
-            className="absolute left-5 top-1/2 transform -translate-y-3/4 z-10"
-            onClick={() => scrollCarousel(categorySlug, "left")}
-          >
-            <div className="cursor-pointer text-white flex justify-center items-center h-10 w-10 rounded-full bg-search-hoverBackground active:scale-110 transition-[transform,background-color] duration-200">
-              <Icon icon={Icons.ARROW_LEFT} />
-            </div>
-          </button>
-          <button
-            type="button"
-            title="Next"
-            className="absolute right-5 top-1/2 transform -translate-y-3/4 z-10"
-            onClick={() => scrollCarousel(categorySlug, "right")}
-          >
-            <div className="cursor-pointer text-white flex justify-center items-center h-10 w-10 rounded-full bg-search-hoverBackground active:scale-110 transition-[transform,background-color] duration-200">
-              <Icon icon={Icons.ARROW_RIGHT} />
-            </div>
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  function renderMovies(medias: Media[], category: string, isTVShow = false) {
-    const categorySlug = `${category
-      .toLowerCase()
-      .replace(/ /g, "-")}${Math.random()}`; // Convert the category to a slug
-    const displayCategory =
-      category === "Now Playing"
-        ? "In Cinemas"
-        : category.includes("Movie")
-          ? `${category}s`
-          : isTVShow
-            ? `${category} Shows`
-            : `${category} Movies`;
-    return (
-      <div className="relative overflow-hidden mt-2">
-        <h2 className="text-2xl cursor-default font-bold text-white sm:text-3xl md:text-2xl mx-auto pl-5">
-          {displayCategory}
-        </h2>
-        <div
-          id={`carousel-${categorySlug}`}
-          className="flex whitespace-nowrap pt-4 overflow-auto scrollbar rounded-xl overflow-y-hidden"
-          style={{
-            scrollbarWidth: "thin",
-            // scrollbarColor: `${bgColor} transparent`,
-            scrollbarColor: "transparent transparent",
-          }}
-          ref={(el) => {
-            carouselRefs.current[categorySlug] = el;
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onWheel={(e) => handleWheel(e, categorySlug)}
-        >
-          {medias.slice(0, 20).map((media) => (
-            <a
-              key={media.id}
-              onClick={() =>
-                navigate(
-                  `/media/tmdb-${isTVShow ? "tv" : "movie"}-${media.id}-${
-                    isTVShow ? media.name : media.title
-                  }`,
-                )
-              }
-              className="text-center relative mt-3 mx-[0.285em] mb-3 transition-transform hover:scale-105 duration-[0.45s]"
-              style={{ flex: `0 0 ${movieWidth}` }} // Set a fixed width for each movie
-            >
-              <Flare.Base className="group cursor-pointer rounded-xl relative p-[0.65em] bg-background-main transition-colors duration-300 bg-transparent">
-                <Flare.Light
-                  flareSize={300}
-                  cssColorVar="--colors-mediaCard-hoverAccent"
-                  backgroundClass="bg-mediaCard-hoverBackground duration-200"
-                  className="rounded-xl bg-background-main group-hover:opacity-100"
-                />
-                <img
-                  src={
-                    media.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
-                      : "https://via.placeholder.com/500x750?text=No+Image+Found"
-                  }
-                  alt={media.poster_path ? "" : "failed to fetch :("}
-                  loading="lazy"
-                  className="rounded-xl relative"
-                />
-                <h1 className="group relative pt-2 text-[13.5px] whitespace-normal duration-[0.35s] font-semibold text-white opacity-0 group-hover:opacity-100">
-                  {isTVShow
-                    ? (media.name?.length ?? 0) > 32
-                      ? `${media.name?.slice(0, 32)}...`
-                      : media.name
-                    : (media.title?.length ?? 0) > 32
-                      ? `${media.title?.slice(0, 32)}...`
-                      : media.title}
-                </h1>
-              </Flare.Base>
-            </a>
-          ))}
-        </div>
-
         <div className="flex items-center justify-center">
           <button
             type="button"
@@ -532,99 +388,105 @@ export function Discover() {
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
         {/* Hide scrollbar lmao */}
-        {/* <style type="text/css">{`
+        <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style> */}
+          `}</style>
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
-      <WideContainer ultraWide>
-        <div className="flex items-center justify-center mb-6">
-          <button
-            type="button"
-            className="flex items-center space-x-2 rounded-full px-4 text-white py-2 bg-pill-background bg-opacity-50 hover:bg-pill-backgroundHover transition-[background,transform] duration-100 hover:scale-105"
-            onClick={handleRandomMovieClick}
-          >
-            <span className="flex items-center">
-              {countdown !== null && countdown > 0 ? (
-                <div className="flex items-center ">
-                  <span>Cancel Countdown</span>
-                  <Icon
-                    icon={Icons.X}
-                    className="text-2xl ml-[4.5px] mb-[-0.7px]"
-                  />
-                </div>
-              ) : (
-                <div className="flex items-center ">
-                  <span>Watch Something New</span>
-                </div>
-              )}
-            </span>
-          </button>
-        </div>
-        {randomMovie && (
-          <div className="mt-4 mb-4 text-center">
-            <p>
-              Now Playing <span className="font-bold">{randomMovie.title}</span>{" "}
-              in {countdown}
-            </p>
+      <div className="">
+        <WideContainer ultraWide>
+          <div className="flex items-center justify-center mb-6">
+            <button
+              type="button"
+              className="flex items-center space-x-2 rounded-full px-4 text-white py-2 bg-pill-background bg-opacity-50 hover:bg-pill-backgroundHover transition-[background,transform] duration-100 hover:scale-105"
+              onClick={handleRandomMovieClick}
+            >
+              <span className="flex items-center">
+                {countdown !== null && countdown > 0 ? (
+                  <div className="flex items-center ">
+                    <span>Cancel Countdown</span>
+                    <Icon
+                      icon={Icons.X}
+                      className="text-2xl ml-[4.5px] mb-[-0.7px]"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center ">
+                    <span>Watch Something New</span>
+                  </div>
+                )}
+              </span>
+            </button>
           </div>
-        )}
-        <div className="flex flex-col">
-          {categories.map((category: any) => (
-            <div
-              key={category.name}
-              id={`carousel-${category.name.toLowerCase().replace(/ /g, "-")}`}
-              className="mt-8"
-            >
-              {renderMovies2(
-                categoryMovies[category.name] || [],
-                category.name,
-              )}
+          {randomMovie && (
+            <div className="mt-4 mb-4 text-center">
+              <p>
+                Now Playing{" "}
+                <span className="font-bold">{randomMovie.title}</span> in{" "}
+                {countdown}
+              </p>
             </div>
-          ))}
-
-          {genres.map((genre) => (
-            <div
-              key={genre.id}
-              id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
-              className="mt-8"
-            >
-              {renderMovies(genreMovies[genre.id] || [], genre.name)}
+          )}
+          <div className="flex flex-col ">
+            {categories.map((category: any) => (
+              <div
+                key={category.name}
+                id={`carousel-${category.name
+                  .toLowerCase()
+                  .replace(/ /g, "-")}`}
+                className="mt-8"
+              >
+                {renderMovies2(
+                  categoryMovies[category.name] || [],
+                  category.name,
+                )}
+              </div>
+            ))}
+            {/* {genres.map((genre) => (
+              <div
+                key={genre.id}
+                id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
+                className="mt-8"
+              >
+                {renderMovies2(genreMovies[genre.id] || [], genre.name)}
+              </div>
+            ))} */}
+            <div className="flex items-center">
+              <Divider marginClass="mr-5" />
+              <h1 className="text-4xl font-bold text-white mx-auto">Shows</h1>
+              <Divider marginClass="ml-5" />
             </div>
-          ))}
-          <div className="flex items-center">
-            <Divider marginClass="mr-5" />
-            <h1 className="text-4xl font-bold text-white mx-auto">Shows</h1>
-            <Divider marginClass="ml-5" />
+            {tvCategories.map((category) => (
+              <div
+                key={category.name}
+                id={`carousel-${category.name
+                  .toLowerCase()
+                  .replace(/ /g, "-")}`}
+                className="mt-8"
+              >
+                {renderMovies2(
+                  categoryShows[category.name] || [],
+                  category.name,
+                  true,
+                )}
+              </div>
+            ))}
+            {/* {tvGenres.map((genre) => (
+              <div
+                key={genre.id}
+                id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
+                className="mt-8"
+              >
+                {renderMovies2(tvShowGenres[genre.id] || [], genre.name, true)}
+              </div>
+            ))} */}
           </div>
-          {tvCategories.map((category) => (
-            <div
-              key={category.name}
-              id={`carousel-${category.name.toLowerCase().replace(/ /g, "-")}`}
-              className="mt-8"
-            >
-              {renderMovies2(
-                categoryShows[category.name] || [],
-                category.name,
-                true,
-              )}
-            </div>
-          ))}
-          {tvGenres.map((genre) => (
-            <div
-              key={genre.id}
-              id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
-              className="mt-8"
-            >
-              {renderMovies(tvShowGenres[genre.id] || [], genre.name, true)}
-            </div>
-          ))}
-        </div>
-      </WideContainer>
+        </WideContainer>
+      </div>
     </HomeLayout>
   );
 }

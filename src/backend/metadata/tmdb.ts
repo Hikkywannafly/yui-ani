@@ -2,7 +2,6 @@ import slugify from "slugify";
 
 import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
-import { Category } from "@/utils/discover";
 import { MediaItem } from "@/utils/mediaTypes";
 
 import { MWMediaMeta, MWMediaType, MWSeasonMeta } from "./types/mw";
@@ -301,8 +300,7 @@ export function formatTMDBDiscoverResult(
   mediatype?: TMDBContentTypes,
 ): MediaItem {
   if (mediatype) {
-    const type = TMDBMediaToMediaType(mediatype);
-    if (type === MWMediaType.SERIES) {
+    if (mediatype === TMDBContentTypes.TV) {
       const show = result as TMDBShowSearchResult;
       return {
         title: show.name,

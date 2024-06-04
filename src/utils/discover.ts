@@ -55,3 +55,14 @@ export const tvCategories: Category[] = [
     endpoint: "/tv/popular",
   },
 ];
+
+export const ortherCategories: Category[] = [
+  {
+    name: "discover ",
+    endpoint: "/discover/tv/list",
+  },
+  {
+    name: "genre ",
+    endpoint: "/genre/tv/list",
+  },
+];
