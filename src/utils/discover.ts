@@ -32,26 +32,26 @@ export interface Category {
 // Define the categories
 export const categories: Category[] = [
   {
-    name: "Now Playing",
+    name: "now_playing",
     endpoint: "/movie/now_playing",
   },
   {
-    name: "Top Rated",
+    name: "top_rated",
     endpoint: "/movie/top_rated",
   },
   {
-    name: "Most Popular",
+    name: "most_popular",
     endpoint: "/movie/popular",
   },
 ];
 
 export const tvCategories: Category[] = [
   {
-    name: "Top Rated",
+    name: "top_rated",
     endpoint: "/tv/top_rated",
   },
   {
-    name: "Most Popular",
+    name: "most_popular",
     endpoint: "/tv/popular",
   },
 ];

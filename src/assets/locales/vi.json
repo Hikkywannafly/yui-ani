@@ -562,6 +562,11 @@
     "upcoming": "Sắp tới",
     "movies": "Phim",
     "shows": "Chương trình truyền hình",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "now_playing": "Đang chiếu",
+    "top_airing": "Top đang phát",
+    "top_rated": "Top đánh giá",
+    "top_upcoming": "Top sắp tới",
+    "most_popular": "Phổ biến nhất"
   }
 }

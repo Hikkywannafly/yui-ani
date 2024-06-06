@@ -474,7 +474,9 @@ export function Discover() {
             ))} */}
             <div className="flex items-center">
               <Divider marginClass="mr-5" />
-              <h1 className="text-4xl font-bold text-white mx-auto">Shows</h1>
+              <h1 className="flex text-3xl font-bold text-white items-center">
+                {t("discover.shows").split(" ").join("\u00A0")}
+              </h1>
               <Divider marginClass="ml-5" />
             </div>
             {tvCategories.map((category) => (
