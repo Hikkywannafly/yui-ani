@@ -1,5 +1,5 @@
 /* Define shit here */
-
+import { MediaItem } from "./mediaTypes";
 // Define the Media type
 export interface Media {
   id: number;
@@ -9,11 +9,11 @@ export interface Media {
 }
 
 // Update the Movie and TVShow interfaces to extend the Media interface
-export interface Movie extends Media {
+export interface Movie extends MediaItem {
   title: string;
 }
 
-export interface TVShow extends Media {
+export interface TVShow extends MediaItem {
   name: string;
 }
 
@@ -58,11 +58,19 @@ export const tvCategories: Category[] = [
 
 export const ortherCategories: Category[] = [
   {
-    name: "discover ",
-    endpoint: "/discover/tv/list",
+    name: "Genre TV ",
+    endpoint: "/genre/tv/list",
   },
   {
-    name: "genre ",
-    endpoint: "/genre/tv/list",
+    name: "Discover TV",
+    endpoint: "/discover/tv",
+  },
+  {
+    name: "Genre Moive",
+    endpoint: "/genre/movie/list",
+  },
+  {
+    name: "Discover Moive ",
+    endpoint: "/discover/movie",
   },
 ];

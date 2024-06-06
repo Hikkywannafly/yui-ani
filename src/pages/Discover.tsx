@@ -2,14 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { fetchForCategory } from "@/backend/metadata/discover";
+import { fetchForCategory, fetchForGenres } from "@/backend/metadata/discover";
 import { get } from "@/backend/metadata/tmdb";
 import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
-import { MediaCard } from "@/components/media/MediaCard";
 import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
 import { Divider } from "@/components/utils/Divider";
-import { Flare } from "@/components/utils/Flare";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
 import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
@@ -30,7 +28,7 @@ import { Icon, Icons } from "../components/Icon";
 
 export function Discover() {
   const { t } = useTranslation();
-  const currentLansguage = i18n.language;
+  const currentLanguage = i18n.language;
   const [showBg, setShowBg] = useState<boolean>(false);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
@@ -57,30 +55,25 @@ export function Discover() {
 
   useEffect(() => {
     categories.forEach((category) =>
-      fetchForCategory(category, setCategoryMovies, currentLansguage),
+      fetchForCategory(category, setCategoryMovies, currentLanguage),
     );
-  }, [currentLansguage]);
+  }, [currentLanguage]);
 
   useEffect(() => {
     tvCategories.forEach((category) =>
       fetchForCategory(
         category,
         setCategoryShows,
-        currentLansguage,
+        currentLanguage,
         TMDBContentTypes.TV,
       ),
     );
-  }, [currentLansguage]);
+  }, [currentLanguage]);
 
   // Fetch TV show genres
   useEffect(() => {
-    fetchForCategory(
-      ortherCategories[0],
-      setTVGenres,
-      currentLansguage,
-      TMDBContentTypes.TV,
-    );
-  }, [currentLansguage]);
+    fetchForGenres(ortherCategories[0], setTVGenres, currentLanguage);
+  }, [currentLanguage]);
 
   // Fetch TV shows for each genre
   useEffect(() => {
@@ -88,12 +81,99 @@ export function Discover() {
       fetchForCategory(
         ortherCategories[1],
         setTVShowGenres,
-        currentLansguage,
+        currentLanguage,
         TMDBContentTypes.TV,
         genre.id.toString(),
+        true,
       ),
     );
-  }, [currentLansguage, tvGenres]);
+  }, [currentLanguage, tvGenres]);
+  // useEffect(() => {
+  //   const fetchTVShowsForGenre = async (genreId: number) => {
+  //     try {
+  //       const data = await get<any>("/discover/tv", {
+  //         api_key: conf().TMDB_READ_API_KEY,
+  //         with_genres: genreId.toString(),
+  //         language: "vi-VN",
+  //       });
+  //       // Shuffle the TV shows
+  //       for (let i = data.results.length - 1; i > 0; i -= 1) {
+  //         const j = Math.floor(Math.random() * (i + 1));
+  //         [data.results[i], data.results[j]] = [
+  //           data.results[j],
+  //           data.results[i],
+  //         ];
+  //       }
+
+  //       setTVShowGenres((prevTVShowGenres) => ({
+  //         ...prevTVShowGenres,
+  //         [genreId]: data.results,
+  //       }));
+  //     } catch (error) {
+  //       console.error(`Error fetching TV shows for genre ${genreId}:`, error);
+  //     }
+  //   };
+
+  //   tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
+  // }, [tvGenres]);
+
+  // Fetch Movie genres
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const data = await get<any>("/genre/movie/list", {
+          api_key: conf().TMDB_READ_API_KEY,
+          language: "en-US",
+        });
+        // Shuffle the array of genres
+        for (let i = data.genres.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [data.genres[i], data.genres[j]] = [data.genres[j], data.genres[i]];
+        }
+        // Fetch only the first 4 genres
+        setGenres(data.genres.slice(0, 4));
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+    fetchGenres();
+    // fetchForCategory(ortherCategories[3], setGenres, currentLanguage);
+  }, [currentLanguage]);
+
+  // Fetch movies for each genre
+  useEffect(() => {
+    const fetchMoviesForGenre = async (genreId: number) => {
+      try {
+        const movies: any[] = [];
+        for (let page = 1; page <= 6; page += 1) {
+          // Fetch only 6 pages
+          const data = await get<any>("/discover/movie", {
+            api_key: conf().TMDB_READ_API_KEY,
+            with_genres: genreId.toString(),
+            language: currentLanguage,
+            page: page.toString(),
+          });
+
+          movies.push(...data.results);
+        }
+
+        // Shuffle the movies
+        for (let i = movies.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [movies[i], movies[j]] = [movies[j], movies[i]];
+        }
+
+        setGenreMovies((prevGenreMovies) => ({
+          ...prevGenreMovies,
+          [genreId]: movies,
+        }));
+      } catch (error) {
+        console.error(`Error fetching movies for genre ${genreId}:`, error);
+      }
+    };
+
+    genres.forEach((genre) => fetchMoviesForGenre(genre.id));
+  }, [genres, currentLanguage]);
 
   // Update the scrollCarousel function to use the new ref map
   function scrollCarousel(categorySlug: string, direction: string) {
@@ -152,7 +232,9 @@ export function Discover() {
     }
   }, [movieWidth]);
 
+  const browser = !!window.chrome; // detect chromium browser
   let isScrolling = false;
+
   function handleWheel(e: React.WheelEvent, categorySlug: string) {
     if (isScrolling) {
       return;
@@ -174,9 +256,14 @@ export function Discover() {
         }
       }
     }
-    setTimeout(() => {
+    if (browser) {
+      setTimeout(() => {
+        isScrolling = false;
+      }, 345); // disable scrolling after 345 milliseconds for chromium-based browsers
+    } else {
+      // immediately reset isScrolling for non-chromium browsers
       isScrolling = false;
-    }, 345); // Disable scrolling every 3 milliseconds after interaction (only for mouse wheel doe)
+    }
   }
 
   const [isHovered, setIsHovered] = useState(false);
@@ -202,7 +289,7 @@ export function Discover() {
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
-  function renderMovies2(
+  function renderMovies(
     medias: MediaItem[],
     category: string,
     isTVShow = false,
@@ -226,7 +313,7 @@ export function Discover() {
         </h2>
         <div
           id={`carousel-${categorySlug}`}
-          className="flex pt-4 overflow-auto scrollbar overflow-y-hidden gap-6 mt-5"
+          className="flex pt-4 overflow-auto scrollbar overflow-y-hidden gap-6 mt-5 p-3"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "transparent transparent",
@@ -297,7 +384,6 @@ export function Discover() {
         }
       } else {
         setCountdown(5);
-
         // Schedule navigation after 5 seconds
         const timeoutId = setTimeout(() => {
           navigate(
@@ -308,66 +394,6 @@ export function Discover() {
       }
     }
   };
-
-  // Fetch Movie genres
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const data = await get<any>("/genre/movie/list", {
-          api_key: conf().TMDB_READ_API_KEY,
-          language: "en-US",
-        });
-
-        // Shuffle the array of genres
-        for (let i = data.genres.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.genres[i], data.genres[j]] = [data.genres[j], data.genres[i]];
-        }
-
-        // Fetch only the first 4 genres
-        setGenres(data.genres.slice(0, 4));
-      } catch (error) {
-        console.error("Error fetching genres:", error);
-      }
-    };
-
-    fetchGenres();
-  }, []);
-
-  // Fetch movies for each genre
-  useEffect(() => {
-    const fetchMoviesForGenre = async (genreId: number) => {
-      try {
-        const movies: any[] = [];
-        for (let page = 1; page <= 6; page += 1) {
-          // Fetch only 6 pages
-          const data = await get<any>("/discover/movie", {
-            api_key: conf().TMDB_READ_API_KEY,
-            with_genres: genreId.toString(),
-            language: currentLansguage,
-            page: page.toString(),
-          });
-
-          movies.push(...data.results);
-        }
-
-        // Shuffle the movies
-        for (let i = movies.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [movies[i], movies[j]] = [movies[j], movies[i]];
-        }
-
-        setGenreMovies((prevGenreMovies) => ({
-          ...prevGenreMovies,
-          [genreId]: movies,
-        }));
-      } catch (error) {
-        console.error(`Error fetching movies for genre ${genreId}:`, error);
-      }
-    };
-
-    genres.forEach((genre) => fetchMoviesForGenre(genre.id));
-  }, [genres, currentLansguage]);
 
   useEffect(() => {
     let countdownInterval: NodeJS.Timeout;
@@ -387,13 +413,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        {/* Hide scrollbar lmao */}
-        <style type="text/css">{`
+        {/* <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style>
+          `}</style> */}
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
@@ -440,7 +465,7 @@ export function Discover() {
                   .replace(/ /g, "-")}`}
                 className="mt-8"
               >
-                {renderMovies2(
+                {renderMovies(
                   categoryMovies[category.name] || [],
                   category.name,
                 )}
@@ -452,7 +477,7 @@ export function Discover() {
                 id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
                 className="mt-8"
               >
-                {renderMovies2(genreMovies[genre.id] || [], genre.name)}
+                {renderMovies(genreMovies[genre.id] || [], genre.name)}
               </div>
             ))} */}
             <div className="flex items-center">
@@ -468,22 +493,22 @@ export function Discover() {
                   .replace(/ /g, "-")}`}
                 className="mt-8"
               >
-                {renderMovies2(
+                {renderMovies(
                   categoryShows[category.name] || [],
                   category.name,
                   true,
                 )}
               </div>
             ))}
-            {/* {tvGenres.map((genre) => (
+            {tvGenres.map((genre) => (
               <div
                 key={genre.id}
                 id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
                 className="mt-8"
               >
-                {renderMovies2(tvShowGenres[genre.id] || [], genre.name, true)}
+                {renderMovies(tvShowGenres[genre.id] || [], genre.name, true)}
               </div>
-            ))} */}
+            ))}
           </div>
         </WideContainer>
       </div>

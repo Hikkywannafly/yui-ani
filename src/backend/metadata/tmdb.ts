@@ -324,7 +324,34 @@ export function formatTMDBDiscoverResult(
     type: "movie",
   };
 }
-
+export function formatTMDBDiscoverResultArray(
+  result: TMDBMovieSearchResult[] | TMDBShowSearchResult[],
+  mediatype?: TMDBContentTypes,
+): MediaItem[] {
+  console.log(result);
+  return result.map((item) => {
+    if (mediatype === TMDBContentTypes.TV) {
+      const show = item as TMDBShowSearchResult;
+      return {
+        title: show.name,
+        poster: getMediaPoster(show.poster_path),
+        id: show.id.toString(),
+        year: new Date(show.first_air_date).getFullYear(),
+        release_date: new Date(show.first_air_date),
+        type: "show",
+      };
+    }
+    const movie = item as TMDBMovieSearchResult;
+    return {
+      title: movie.title,
+      poster: getMediaPoster(movie.poster_path),
+      id: movie.id.toString(),
+      year: new Date(movie.release_date).getFullYear(),
+      release_date: new Date(movie.release_date),
+      type: "movie",
+    };
+  });
+}
 export function formatTMDBResultDetail(
   result: TMDBMovieSearchResult | TMDBShowSearchResult,
   mediatype: TMDBContentTypes,
