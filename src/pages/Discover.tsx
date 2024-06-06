@@ -76,46 +76,38 @@ export function Discover() {
   }, [currentLanguage]);
 
   // Fetch TV shows for each genre
-  useEffect(() => {
-    tvGenres.forEach((genre) =>
-      fetchForCategory(
-        ortherCategories[1],
-        setTVShowGenres,
-        currentLanguage,
-        TMDBContentTypes.TV,
-        genre.id.toString(),
-        true,
-      ),
-    );
-  }, [currentLanguage, tvGenres]);
   // useEffect(() => {
-  //   const fetchTVShowsForGenre = async (genreId: number) => {
-  //     try {
-  //       const data = await get<any>("/discover/tv", {
-  //         api_key: conf().TMDB_READ_API_KEY,
-  //         with_genres: genreId.toString(),
-  //         language: "vi-VN",
-  //       });
-  //       // Shuffle the TV shows
-  //       for (let i = data.results.length - 1; i > 0; i -= 1) {
-  //         const j = Math.floor(Math.random() * (i + 1));
-  //         [data.results[i], data.results[j]] = [
-  //           data.results[j],
-  //           data.results[i],
-  //         ];
-  //       }
+  //   tvGenres.forEach((genre) =>
+  //     fetchForCategory(
+  //       ortherCategories[1],
+  //       setTVShowGenres,
+  //       currentLanguage,
+  //       TMDBContentTypes.TV,
+  //       genre.id.toString(),
+  //       true,
+  //     ),
+  //   );
+  // }, [currentLanguage, tvGenres]);
+  useEffect(() => {
+    const fetchTVShowsForGenre = async (genreId: number) => {
+      try {
+        const data = await get<any>("/discover/tv", {
+          api_key: conf().TMDB_READ_API_KEY,
+          with_genres: genreId.toString(),
+          language: "vi-VN",
+        });
 
-  //       setTVShowGenres((prevTVShowGenres) => ({
-  //         ...prevTVShowGenres,
-  //         [genreId]: data.results,
-  //       }));
-  //     } catch (error) {
-  //       console.error(`Error fetching TV shows for genre ${genreId}:`, error);
-  //     }
-  //   };
+        setTVShowGenres((prevTVShowGenres) => ({
+          ...prevTVShowGenres,
+          [genreId]: data.results,
+        }));
+      } catch (error) {
+        console.error(`Error fetching TV shows for genre ${genreId}:`, error);
+      }
+    };
 
-  //   tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
-  // }, [tvGenres]);
+    tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
+  }, [tvGenres]);
 
   // Fetch Movie genres
   useEffect(() => {
@@ -303,8 +295,8 @@ export function Discover() {
         : category.includes("Movie")
           ? `${category}s`
           : isTVShow
-            ? `${category} Shows`
-            : `${category} Movies`;
+            ? `${category}`
+            : `${category}`;
 
     return (
       <div className="relative overflow-hidden mt-2">
@@ -413,12 +405,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        {/* <style type="text/css">{`
+        <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style> */}
+          `}</style>
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
