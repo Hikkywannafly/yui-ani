@@ -433,7 +433,7 @@ export function Discover() {
                   </div>
                 ) : (
                   <div className="flex items-center ">
-                    <span>Watch Something New</span>
+                    <span>{t("discover.w_s_t")}</span>
                   </div>
                 )}
               </span>
