@@ -1,11 +1,7 @@
 import { conf } from "@/setup/config";
 import { Category } from "@/utils/discover";
 
-import {
-  formatTMDBDiscoverResult,
-  formatTMDBDiscoverResultArray,
-  get,
-} from "./tmdb";
+import { formatTMDBDiscoverResult, get } from "./tmdb";
 import { TMDBContentTypes, TMDBSearchResult } from "./types/tmdb";
 
 export const fetchForCategory = async (
@@ -14,7 +10,6 @@ export const fetchForCategory = async (
   currentLanguage: string,
   mediatype?: TMDBContentTypes,
   withGenre?: string,
-  arrayMode?: boolean,
 ) => {
   try {
     const data = await get<TMDBSearchResult>(category.endpoint, {
@@ -22,17 +17,10 @@ export const fetchForCategory = async (
       language: currentLanguage,
       with_genres: withGenre,
     });
-    let dataFormat: any;
-    if (arrayMode) {
-      dataFormat = data.results.map((r: any) =>
-        formatTMDBDiscoverResultArray(r, mediatype),
-      );
-      console.log(arrayMode);
-    } else {
-      dataFormat = data.results.map((r: any) =>
-        formatTMDBDiscoverResult(r, mediatype),
-      );
-    }
+
+    const dataFormat = data.results.map((r: any) =>
+      formatTMDBDiscoverResult(r, mediatype),
+    );
 
     for (let i = dataFormat.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -72,5 +60,35 @@ export const fetchForGenres = async (
     setState(data.genres.slice(0, 6));
   } catch (error) {
     console.error("Error fetching TV show genres:", error);
+  }
+};
+
+export const fetchForCategoryGenres = async (
+  category: Category,
+  setState: React.Dispatch<React.SetStateAction<any>>,
+  currentLanguage: string,
+  mediatype?: TMDBContentTypes,
+  withGenre?: string | any,
+) => {
+  try {
+    const data = await get<TMDBSearchResult>(category.endpoint, {
+      api_key: conf().TMDB_READ_API_KEY,
+      language: currentLanguage,
+      with_genres: withGenre,
+    });
+
+    const dataFormat = data.results.map((r: any) =>
+      formatTMDBDiscoverResult(r, mediatype),
+    );
+
+    setState((prevCategoryMovies: any) => ({
+      ...prevCategoryMovies,
+      [withGenre]: dataFormat,
+    }));
+  } catch (error) {
+    console.error(
+      `Error fetching movies for category ${category.name}:`,
+      error,
+    );
   }
 };

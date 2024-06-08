@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { fetchForCategory, fetchForGenres } from "@/backend/metadata/discover";
+import {
+  fetchForCategory,
+  fetchForCategoryGenres,
+  fetchForGenres,
+} from "@/backend/metadata/discover";
 import { get } from "@/backend/metadata/tmdb";
 import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
@@ -75,40 +79,50 @@ export function Discover() {
     fetchForGenres(ortherCategories[0], setTVGenres, currentLanguage);
   }, [currentLanguage]);
 
+  // need to fix
+
   // Fetch TV shows for each genre
-  // useEffect(() => {
-  //   tvGenres.forEach((genre) =>
-  //     fetchForCategory(
-  //       ortherCategories[1],
-  //       setTVShowGenres,
-  //       currentLanguage,
-  //       TMDBContentTypes.TV,
-  //       genre.id.toString(),
-  //       true,
-  //     ),
-  //   );
-  // }, [currentLanguage, tvGenres]);
   useEffect(() => {
-    const fetchTVShowsForGenre = async (genreId: number) => {
-      try {
-        const data = await get<any>("/discover/tv", {
-          api_key: conf().TMDB_READ_API_KEY,
-          with_genres: genreId.toString(),
-          language: "vi-VN",
-        });
+    tvGenres.forEach((genre) =>
+      fetchForCategoryGenres(
+        ortherCategories[1],
+        setTVShowGenres,
+        currentLanguage,
+        TMDBContentTypes.TV,
+        genre.id,
+      ),
+    );
+  }, [currentLanguage, tvGenres]);
 
-        setTVShowGenres((prevTVShowGenres) => ({
-          ...prevTVShowGenres,
-          [genreId]: data.results,
-        }));
-      } catch (error) {
-        console.error(`Error fetching TV shows for genre ${genreId}:`, error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTVShowsForGenre = async (genreId: number) => {
+  //     try {
+  //       const data = await get<any>("/discover/tv", {
+  //         api_key: conf().TMDB_READ_API_KEY,
+  //         with_genres: genreId.toString(),
+  //         language: "vi-VN",
+  //       });
+  //       console.log(`data test`, data);
 
-    tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
-  }, [tvGenres]);
+  //       for (let i = data.results.length - 1; i > 0; i -= 1) {
+  //         const j = Math.floor(Math.random() * (i + 1));
+  //         [data.results[i], data.results[j]] = [
+  //           data.results[j],
+  //           data.results[i],
+  //         ];
+  //       }
+  //       setTVShowGenres((prevTVShowGenres) => ({
+  //         ...prevTVShowGenres,
+  //         [genreId]: data.results,
+  //       }));
+  //     } catch (error) {
+  //       console.error(`Error fetching TV shows for genre ${genreId}:`, error);
+  //     }
+  //   };
 
+  //   tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
+  // }, [tvGenres]);
+  // console.log(tvShowGenres);
   // Fetch Movie genres
   useEffect(() => {
     const fetchGenres = async () => {
@@ -263,6 +277,7 @@ export function Discover() {
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
+
   function renderMovies(
     medias: MediaItem[],
     category: string,
@@ -387,12 +402,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        {/* <style type="text/css">{`
+        <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style> */}
+          `}</style>
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
