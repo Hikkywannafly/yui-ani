@@ -20,10 +20,10 @@ export function BrandPill(props: {
           : "",
       )}
     >
-      <Icon className="text-xl" icon={Icons.MOVIE_WEB} />
+      <Icon className="text-xl" icon={Icons.YUI_ANI} />
       <span
         className={[
-          "font-semibold text-white",
+          "font-bold bg-clip-text  text-transparent rounded-xl drop-shadow-2xl animate-text bg-gradient-to-r from-white to-gray-700 via-gray-400",
           props.hideTextOnMobile ? "hidden sm:block" : "",
         ].join(" ")}
       >

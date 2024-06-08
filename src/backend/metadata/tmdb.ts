@@ -328,7 +328,6 @@ export function formatTMDBDiscoverResultArray(
   result: TMDBMovieSearchResult[] | TMDBShowSearchResult[],
   mediatype?: TMDBContentTypes,
 ): MediaItem[] {
-  console.log(result);
   return result.map((item) => {
     if (mediatype === TMDBContentTypes.TV) {
       const show = item as TMDBShowSearchResult;

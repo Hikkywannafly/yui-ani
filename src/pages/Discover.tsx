@@ -7,13 +7,11 @@ import {
   fetchForCategoryGenres,
   fetchForGenres,
 } from "@/backend/metadata/discover";
-import { get } from "@/backend/metadata/tmdb";
 import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
 import { Divider } from "@/components/utils/Divider";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
-import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
 import {
   Genre,
@@ -239,11 +237,7 @@ export function Discover() {
           onWheel={(e) => handleWheel(e, categorySlug)}
         >
           {medias.map((media: any) => (
-            <a
-              key={media.id}
-              // className="text-center relative mt-3 mx-[0.285em] mb-3 transition-transform hover:scale-105 duration-[0.45s]"
-              style={{ flex: `0 0 ${movieWidth}` }}
-            >
+            <a key={media.id} style={{ flex: `0 0 ${movieWidth}` }}>
               <WatchedMediaCard media={media} key={media.id} />
             </a>
           ))}

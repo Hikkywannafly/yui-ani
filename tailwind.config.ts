@@ -26,7 +26,10 @@ const config: Config = {
           "20%": { height: "1em", "background-color": "white" },
         },
       },
-      animation: { "loading-pin": "loading-pin 1.8s ease-in-out infinite" },
+      animation: {
+        "loading-pin": "loading-pin 1.8s ease-in-out infinite",
+        'text': 'text 5s ease infinite',
+      },
     },
   },
   plugins: [
