@@ -177,22 +177,7 @@ export function Discover() {
         const visibleMovies = Math.floor(carousel.offsetWidth / movieWidth);
         const scrollAmount = movieWidth * visibleMovies * 0.69; // Silly number :3
         if (direction === "left") {
-          if (carousel.scrollLeft <= 5) {
-            carousel.scrollBy({
-              left: carousel.scrollWidth,
-              behavior: "smooth",
-            }); // Scroll to the end
-          } else {
-            carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-          }
-        } else if (
-          carousel.scrollLeft + carousel.offsetWidth + 5 >=
-          carousel.scrollWidth
-        ) {
-          carousel.scrollBy({
-            left: -carousel.scrollWidth,
-            behavior: "smooth",
-          }); // Scroll to the beginning
+          carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
         } else {
           carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
@@ -233,21 +218,18 @@ export function Discover() {
     }
 
     isScrolling = true;
-
     const carousel = carouselRefs.current[categorySlug];
-    if (carousel && !e.deltaX) {
+    if (carousel) {
       const movieElements = carousel.getElementsByTagName("a");
       if (movieElements.length > 0) {
-        const posterWidth = movieElements[0].offsetWidth;
-        const visibleMovies = Math.floor(carousel.offsetWidth / posterWidth);
-        const scrollAmount = posterWidth * visibleMovies * 0.62;
         if (e.deltaY < 5) {
-          carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+          scrollCarousel(categorySlug, "left");
         } else {
-          carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+          scrollCarousel(categorySlug, "right");
         }
       }
     }
+
     if (browser) {
       setTimeout(() => {
         isScrolling = false;
@@ -260,16 +242,16 @@ export function Discover() {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    document.body.style.overflow = "hidden";
+    setIsHovered(true);
+  };
+
   useEffect(() => {
     if (!isHovered) {
       document.body.style.overflow = "auto";
     }
   }, [isHovered]);
-
-  const handleMouseEnter = () => {
-    document.body.style.overflow = "hidden";
-    setIsHovered(true);
-  };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
@@ -405,12 +387,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        <style type="text/css">{`
+        {/* <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style>
+          `}</style> */}
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
