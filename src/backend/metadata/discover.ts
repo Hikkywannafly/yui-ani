@@ -43,6 +43,7 @@ export const fetchForGenres = async (
   category: Category,
   setState: React.Dispatch<React.SetStateAction<any>>,
   currentLanguage: string,
+  quantity: number,
 ) => {
   try {
     const data = await get<any>(category.endpoint, {
@@ -57,7 +58,7 @@ export const fetchForGenres = async (
     }
 
     // Fetch only the first 6 TV show genres
-    setState(data.genres.slice(0, 6));
+    setState(data.genres.slice(0, quantity));
   } catch (error) {
     console.error("Error fetching TV show genres:", error);
   }

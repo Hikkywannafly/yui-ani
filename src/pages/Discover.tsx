@@ -17,7 +17,6 @@ import { conf } from "@/setup/config";
 import i18n from "@/setup/i18n";
 import {
   Genre,
-  Media,
   Movie,
   TVShow,
   categories,
@@ -76,10 +75,8 @@ export function Discover() {
 
   // Fetch TV show genres
   useEffect(() => {
-    fetchForGenres(ortherCategories[0], setTVGenres, currentLanguage);
+    fetchForGenres(ortherCategories[0], setTVGenres, currentLanguage, 6);
   }, [currentLanguage]);
-
-  // need to fix
 
   // Fetch TV shows for each genre
   useEffect(() => {
@@ -93,94 +90,22 @@ export function Discover() {
       ),
     );
   }, [currentLanguage, tvGenres]);
-
-  // useEffect(() => {
-  //   const fetchTVShowsForGenre = async (genreId: number) => {
-  //     try {
-  //       const data = await get<any>("/discover/tv", {
-  //         api_key: conf().TMDB_READ_API_KEY,
-  //         with_genres: genreId.toString(),
-  //         language: "vi-VN",
-  //       });
-  //       console.log(`data test`, data);
-
-  //       for (let i = data.results.length - 1; i > 0; i -= 1) {
-  //         const j = Math.floor(Math.random() * (i + 1));
-  //         [data.results[i], data.results[j]] = [
-  //           data.results[j],
-  //           data.results[i],
-  //         ];
-  //       }
-  //       setTVShowGenres((prevTVShowGenres) => ({
-  //         ...prevTVShowGenres,
-  //         [genreId]: data.results,
-  //       }));
-  //     } catch (error) {
-  //       console.error(`Error fetching TV shows for genre ${genreId}:`, error);
-  //     }
-  //   };
-
-  //   tvGenres.forEach((genre) => fetchTVShowsForGenre(genre.id));
-  // }, [tvGenres]);
-  // console.log(tvShowGenres);
   // Fetch Movie genres
   useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const data = await get<any>("/genre/movie/list", {
-          api_key: conf().TMDB_READ_API_KEY,
-          language: "en-US",
-        });
-        // Shuffle the array of genres
-        for (let i = data.genres.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data.genres[i], data.genres[j]] = [data.genres[j], data.genres[i]];
-        }
-        // Fetch only the first 4 genres
-        setGenres(data.genres.slice(0, 4));
-      } catch (error) {
-        console.error("Error fetching genres:", error);
-      }
-    };
-    fetchGenres();
-    // fetchForCategory(ortherCategories[3], setGenres, currentLanguage);
+    fetchForGenres(ortherCategories[2], setGenres, currentLanguage, 4);
   }, [currentLanguage]);
-
   // Fetch movies for each genre
   useEffect(() => {
-    const fetchMoviesForGenre = async (genreId: number) => {
-      try {
-        const movies: any[] = [];
-        for (let page = 1; page <= 6; page += 1) {
-          // Fetch only 6 pages
-          const data = await get<any>("/discover/movie", {
-            api_key: conf().TMDB_READ_API_KEY,
-            with_genres: genreId.toString(),
-            language: currentLanguage,
-            page: page.toString(),
-          });
-
-          movies.push(...data.results);
-        }
-
-        // Shuffle the movies
-        for (let i = movies.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [movies[i], movies[j]] = [movies[j], movies[i]];
-        }
-
-        setGenreMovies((prevGenreMovies) => ({
-          ...prevGenreMovies,
-          [genreId]: movies,
-        }));
-      } catch (error) {
-        console.error(`Error fetching movies for genre ${genreId}:`, error);
-      }
-    };
-
-    genres.forEach((genre) => fetchMoviesForGenre(genre.id));
-  }, [genres, currentLanguage]);
-
+    genres.forEach((genre) =>
+      fetchForCategoryGenres(
+        ortherCategories[3],
+        setGenreMovies,
+        currentLanguage,
+        TMDBContentTypes.MOVIE,
+        genre.id,
+      ),
+    );
+  }, [currentLanguage, genres]);
   // Update the scrollCarousel function to use the new ref map
   function scrollCarousel(categorySlug: string, direction: string) {
     const carousel = carouselRefs.current[categorySlug];
@@ -198,7 +123,6 @@ export function Discover() {
       }
     }
   }
-
   const [movieWidth, setMovieWidth] = useState(
     window.innerWidth < 600 ? "150px" : "200px",
   );
@@ -460,7 +384,7 @@ export function Discover() {
                 )}
               </div>
             ))}
-            {/* {genres.map((genre) => (
+            {genres.map((genre) => (
               <div
                 key={genre.id}
                 id={`carousel-${genre.name.toLowerCase().replace(/ /g, "-")}`}
@@ -468,7 +392,7 @@ export function Discover() {
               >
                 {renderMovies(genreMovies[genre.id] || [], genre.name)}
               </div>
-            ))} */}
+            ))}
             <div className="flex items-center">
               <Divider marginClass="mr-5" />
               <h1 className="flex text-3xl font-bold text-white items-center">
