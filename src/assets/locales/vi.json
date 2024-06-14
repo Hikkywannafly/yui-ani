@@ -1,7 +1,7 @@
 {
   "locale": "vi-VN",
   "about": {
-    "description": "yui-ani là một ứng dụng web tìm kiếm các nguồn truyền phát trực tuyến trên Internet. Nhóm phát triển ứng dụng này nhắm đến một cách dễ dàng hơn trong việc tiêu thụ nội dung.",
+    "description": "yui-ani là một ứng dụng web tìm kiếm các nguồn truyền phát trực tuyến trên Internet.",
     "faqTitle": "Các câu hỏi thường gặp",
     "q1": {
       "body": "yui-ani không lưu trữ bất kì nội dung nào. Khi bạn chọn xem một nội dung nào đó, ứng dụng sẽ tìm kiếm nội dung đó trên Internet (Khi nội dung tải và trong tab 'nguồn video' bạn sẽ tìm thấy nguồn đang được dùng). Nội dung không bao giờ được tải lên trên yui-ani, mọi thứ đều được tìm kiếm thông qua phương thức này.",
@@ -151,7 +151,7 @@
       "dmca": "DMCA",
       "github": "GitHub"
     },
-    "tagline": "Xem các chương trình và phim yêu thích của bạn với ứng dụng phát trực tuyến nguồn mở này."
+    "tagline": "Xem các chương trình và phim yêu thích của bạn với ứng dụng phát trực tuyến này."
   },
   "global": {
     "name": "yui-ani",

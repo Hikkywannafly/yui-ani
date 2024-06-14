@@ -177,28 +177,13 @@ export function Discover() {
   }
 
   const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    document.body.style.overflow = "hidden";
-    setIsHovered(true);
-  };
-
+  const toggleHover = (isHovering: boolean) => setIsHovered(isHovering);
   useEffect(() => {
-    if (!isHovered) {
-      document.body.style.overflow = "auto";
-    }
-  }, [isHovered]);
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("mouseleave", handleMouseLeave);
+    document.body.style.overflow = isHovered ? "hidden" : "auto";
     return () => {
-      window.removeEventListener("mouseleave", handleMouseLeave);
+      document.body.style.overflow = "auto";
     };
-  }, []);
+  }, [isHovered]);
 
   function renderMovies(
     medias: MediaItem[],
@@ -232,8 +217,8 @@ export function Discover() {
           ref={(el) => {
             carouselRefs.current[categorySlug] = el;
           }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => toggleHover(true)}
+          onMouseLeave={() => toggleHover(false)}
           onWheel={(e) => handleWheel(e, categorySlug)}
         >
           {medias.map((media: any) => (
@@ -320,12 +305,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        <style type="text/css">{`
+        {/* <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style>
+          `}</style> */}
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>

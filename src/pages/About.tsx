@@ -21,7 +21,7 @@ export function AboutPage() {
   return (
     <SubPageLayout>
       <PageTitle subpage k="global.pages.about" />
-      <ThinContainer>
+      {/* <ThinContainer>
         <Heading1>{t("about.title")}</Heading1>
         <Paragraph>{t("about.description")}</Paragraph>
         <Heading2>{t("about.faqTitle")}</Heading2>
@@ -38,7 +38,7 @@ export function AboutPage() {
             </Question>,
           ]}
         />
-      </ThinContainer>
+      </ThinContainer> */}
     </SubPageLayout>
   );
 }
