@@ -41,7 +41,7 @@ function ProxyEdit({ proxyUrls, setProxyUrls }: ProxyEditProps) {
 
   const removeItem = useCallback(
     (index: number) => {
-      setProxyUrls((s) => [...(s ?? []).filter((v, i) => i !== index)]);
+      setProxyUrls((s) => [...(s ?? []).filter((_v, i) => i !== index)]);
     },
     [setProxyUrls],
   );
@@ -149,6 +149,8 @@ function BackendEdit({ backendUrl, setBackendUrl }: BackendEditProps) {
 
 export function ConnectionsPart(props: BackendEditProps & ProxyEditProps) {
   const { t } = useTranslation();
+  const backendUrlDefault = process.env.BACKEND_URL || "";
+  props.setBackendUrl(backendUrlDefault);
   return (
     <div>
       <Heading1 border>{t("settings.connections.title")}</Heading1>
