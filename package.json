@@ -5,6 +5,7 @@
   "homepage": "https://github.com/hikkywannafly",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "build:pwa": "cross-env VITE_PWA_ENABLED=true vite build",
     "test": "vitest run",

@@ -149,8 +149,6 @@ function BackendEdit({ backendUrl, setBackendUrl }: BackendEditProps) {
 
 export function ConnectionsPart(props: BackendEditProps & ProxyEditProps) {
   const { t } = useTranslation();
-  const backendUrlDefault = process.env.BACKEND_URL || "";
-  props.setBackendUrl(backendUrlDefault);
   return (
     <div>
       <Heading1 border>{t("settings.connections.title")}</Heading1>

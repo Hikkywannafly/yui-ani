@@ -305,12 +305,12 @@ export function Discover() {
   return (
     <HomeLayout showBg={showBg}>
       <div className="mb-16 sm:mb-2">
-        {/* <style type="text/css">{`
+        <style type="text/css">{`
             html, body {
               scrollbar-width: none;
               -ms-overflow-style: none;
             }
-          `}</style> */}
+          `}</style>
         <PageTitle subpage k="global.pages.discover" />
         <HeroPart2 title={t("global.pages.discover")} setIsSticky={setShowBg} />
       </div>
