@@ -45,8 +45,10 @@ ENV VITE_ALLOW_AUTOPLAY=${ALLOW_AUTOPLAY}
 COPY . ./
 RUN pnpm run build
 
-# production environment
-FROM nginx:stable-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# production environment for Heroku
+FROM node:20-alpine
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=build /app/dist /app/dist
+EXPOSE 8080
+CMD ["serve", "-s", "dist", "-l", "${PORT:-8080}"]
